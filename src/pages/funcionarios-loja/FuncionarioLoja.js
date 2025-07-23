@@ -158,9 +158,9 @@ export default function FuncionarioLoja({ route, navigation }) {
           }}
           duration={2000}
         /> */}
-        {data?.map((loja) => (
+        {data?.map((loja, idx) => (
           <View
-            key={loja?.categoria?.id}
+            key={loja.id || idx}
             style={{
               width: "100%",
               marginTop: 24,
@@ -184,15 +184,15 @@ export default function FuncionarioLoja({ route, navigation }) {
           Funcionarios Cadastrados
         </Text>
         <ScrollView style={styles.mainUsers}>
-          {list.map((funcionario, index) => (
+          {list.map((funcionario, idx) => (
             <TouchableOpacity
-              key={index}
+              key={funcionario.id || idx}
               onPress={() => {
                 setSelectedFuncionario(funcionario);
                 setOverlayVisible(true);
               }}
             >
-              <View key={index} style={styles.divUser}>
+              <View key={funcionario.id || idx} style={styles.divUser}>
                 {funcionario.usuario.imagem ? (
                   <Avatar
                     source={{ uri: funcionario.usuario.imagem }}

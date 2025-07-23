@@ -67,12 +67,12 @@ export default function ProdutosLoja({ route, navigation }) {
             Produtos Cadastrados
           </Text>
 
-          {getData?.map((loja) => (
-            <View key={loja?.categoria?.id}>
-              {loja?.produtos?.map((produto) => (
+          {getData?.map((loja, idx) => (
+            <View key={loja?.id || idx}>
+              {loja?.produtos?.map((produto, idx) => (
                 <ProdutoCard
                   produto={produto}
-                  key={produto?.id}
+                  key={produto?.id || idx}
                   onPress={() =>
                     navigation.navigate("EditarProduto", {
                       id: produto.id,

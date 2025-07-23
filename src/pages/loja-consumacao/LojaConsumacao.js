@@ -179,11 +179,11 @@ export default function LojaConsumacao({ navigation, route }) {
           </SafeAreaView>
         ) : (
           <SafeAreaView style={styles.containerProdutos}>
-            {data?.map((pedido) => (
+            {data?.map((pedido, idx) => (
               <ConfirmarPedidoCard
                 pedido={pedido}
                 onPressDelete={() => removerPedido(pedido?.id)}
-                key={pedido?.id}
+                key={pedido.id || idx}
                 onPress={() => validarPedido(pedido.id, pedido.pontos)}
               />
             ))}

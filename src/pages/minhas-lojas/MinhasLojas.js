@@ -84,9 +84,9 @@ export default function MinhasLojas({ navigation }) {
 
         {isLoading ? (
           <View style={styles.skeletonContainer}>
-            {SkelletonItens.map((item, index) => (
+            {SkelletonItens.map((item, idx) => (
               <Skelleton
-                key={index}
+                key={item.id || idx}
                 width={"90%"}
                 marginBottom={12}
                 round={16}
@@ -107,15 +107,15 @@ export default function MinhasLojas({ navigation }) {
                   userStored.id === loja?.usuarioId ||
                   loja?.funcionarios[0]?.ativo
               )
-              .map((loja) =>
+              .map((loja, idx) => (
                 <Card
-                  key={loja?.id}
+                  key={loja.id || idx}
                   item={loja}
                   onPress={() =>
                     navigation.navigate("OpcoesLoja", { id: loja?.id })
                   }
                 />
-              )}
+              ))}
           </View>
         )}
       </ScrollView>

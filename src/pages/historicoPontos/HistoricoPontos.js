@@ -13,7 +13,7 @@ const HistoricoPontos = ({ navigation, route }) => {
 
   useEffect(() => {
     try {
-      lojas?.map((loja, index) => {
+      lojas?.map((loja, idx) => {
         setLoja(loja.lojas);
         return true;
       });
@@ -72,9 +72,9 @@ const HistoricoPontos = ({ navigation, route }) => {
             marginTop: "4%",
           }}
         >
-          {loja?.map((item) => (
+          {loja?.map((item, idx) => (
             <View
-              key={item?.id}
+              key={item?.id || idx}
               style={{
                 width: "100%",
                 flexDirection: "row",

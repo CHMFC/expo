@@ -147,10 +147,10 @@ export default function DenuncieUmaLoja({ navigation }) {
                     marginLeft: '5%',
                     marginTop: 10
                 }}>Lojas{razaoSocial ? ` com "${razaoSocial}"` : ' recentes'}</Text>
-                {lojas.map((item) => (
+                {lojas.map((item, idx) => (
                     <Card
                         item={item}
-                        key={item?.id}
+                        key={item?.id || idx}
                         onPress={() => {
                             setLoja(item)
                             toggleOverlay()

@@ -62,7 +62,7 @@ export const Notificacoes = ({ navigation }) => {
           {allNotificationsFromStorage?.length > 0 ? (
             allNotificationsFromStorage?.map((notification, key) => (
               <View
-                key={key}
+                key={notification.id || key}
                 style={{
                   width: "90%",
                   marginLeft: "5%",

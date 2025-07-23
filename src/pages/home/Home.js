@@ -40,7 +40,6 @@ import ScreenContainer from "../../components/screenContainer/ScreenContainer";
 
 
 const { width } = Dimensions.get("window");
-
 export default function Home({ navigation }) {
   const isFocused = useIsFocused();
   const { tokenStored, setTokenStored, setUserStored } = usePersist();
@@ -454,8 +453,8 @@ export default function Home({ navigation }) {
               color="#1F5A9E"
             />
           ) : (
-            getUserData?.map((data, key) => (
-              <View style={{ height: 300 }} key={key}>
+            getUserData?.map((data, idx) => (
+              <View style={{ height: 300 }} key={data.id ?? `user-data-${idx}`}>
                 <PontosConta
                   tipoPontos="Pontos"
                   marginBottom={5}
@@ -623,7 +622,7 @@ export default function Home({ navigation }) {
           >
             {getBanner?.map((banner, index) => (
               <View
-                key={index || banner?.id}
+                key={banner?.id ?? `banner-indicator-${index}`}
                 style={{
                   width: 6,
                   height: 6,
@@ -661,7 +660,7 @@ export default function Home({ navigation }) {
             <FlatList
               data={getCategorias}
               contentContainerStyle={{ alignItems: "flex-start" }}
-              keyExtractor={(item) => item?.id}
+              keyExtractor={(item, idx) => item?.id ? String(item.id) : `categoria-${idx}`}
               renderItem={({ item }) => (
                 <CategoriesInfo
                   categorieActive={item?.nome === categoria}
@@ -704,11 +703,11 @@ export default function Home({ navigation }) {
               ))}
             </SafeAreaView>
           ) : categoria ? (
-            isFiltered?.map((item) => (
+            isFiltered?.map((item, idx) => (
               <Card
                 userLocation={true}
                 item={item}
-                key={item?.id}
+                key={item?.id ?? `filtered-loja-${idx}`}
                 onPress={() =>
                   navigation.navigate("TelaLoja", {
                     id: item?.id,
@@ -719,11 +718,11 @@ export default function Home({ navigation }) {
               />
             ))
           ) : (
-            getData?.map((item) => (
+            getData?.map((item, idx) => (
               <Card
                 userLocation={true}
                 item={item}
-                key={item?.id}
+                key={item?.id ?? `loja-${idx}`}
                 onPress={() =>
                   navigation.navigate("TelaLoja", {
                     id: item?.id,

@@ -7,6 +7,9 @@ import {
   ScrollView,
   StatusBar,
   Platform,
+  Text,
+  Image,
+  Modal,
 } from "react-native";
 import { styles } from "./ContaStyle";
 // import { Text, Avatar, Icon, Overlay, Image } from "react-native-elements";
@@ -17,7 +20,6 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
 import { PontosConta } from "../../components/pontosConta/PontosConta";
-import Modal from "../../components/modal/Modal";
 import Button from "../../components/button/Button";
 import { API_URL } from "../../const/apiUrl";
 import { StatusBarIos } from "../../components/statusBarIos/StatusBarIos";
@@ -125,7 +127,6 @@ export default function Conta({ navigation }) {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={logout}>
-                <Icon name="log-out" type="ionicon" size={32} color={"#ffffff"} />
                 <Text style={{ color: "#ffffff" }}>Sair</Text>
               </TouchableOpacity>
             </View>
@@ -133,19 +134,14 @@ export default function Conta({ navigation }) {
             <View style={styles.content}>
               <View style={{ position: "absolute", top: -50 }}>
                 {user?.imagem ? (
-                  <Avatar
-                    rounded
-                    size={104}
+                  <Image
                     source={{ uri: user?.imagem }}
-                    containerStyle={{ backgroundColor: "gray" }}
+                    style={{ width: 104, height: 104, borderRadius: 52 }}
                   />
                 ) : (
-                  <Avatar
-                    rounded
-                    size={104}
-                    icon={{ name: "user", type: "font-awesome" }}
-                    containerStyle={{ backgroundColor: "gray" }}
-                  />
+                  <View style={{ width: 104, height: 104, borderRadius: 52, backgroundColor: "gray", justifyContent: "center", alignItems: "center" }}>
+                    <Text style={{ fontSize: 52, color: "white" }}>👤</Text>
+                  </View>
                 )}
               </View>
               <Text style={styles.nome}>{user?.nome?.toUpperCase()}</Text>
@@ -161,8 +157,8 @@ export default function Conta({ navigation }) {
                   color="#005098"
                 />
               ) : (
-                getUserData?.map((data) => (
-                  <SafeAreaView key={user?.id}>
+                getUserData?.map((data, idx) => (
+                  <SafeAreaView key={data.id || idx}>
                     <PontosConta
                       tipoPontos={"Pontos"}
                       marginBottom={5}
@@ -178,10 +174,12 @@ export default function Conta({ navigation }) {
                       }
                     />
 
-                    <Overlay
+                    <Modal
                       isVisible={infoPontos}
                       onBackdropPress={exibirInfoPontos}
-                      overlayStyle={{ width: "90%" }}
+                      animationIn="fadeIn"
+                      animationOut="fadeOut"
+                      style={{ width: "90%" }}
                     >
                       <View>
                         <View
@@ -202,14 +200,8 @@ export default function Conta({ navigation }) {
                           >
                             Como funciona os pontos?
                           </Text>
-                          <TouchableOpacity>
-                            <Icon
-                              name="close-outline"
-                              type="ionicon"
-                              size={32}
-                              color="#000"
-                              onPress={exibirInfoPontos}
-                            />
+                          <TouchableOpacity onPress={exibirInfoPontos}>
+                            <Text style={{ color: "#000", fontSize: 32 }}>✕</Text>
                           </TouchableOpacity>
                         </View>
                         <Text
@@ -224,7 +216,7 @@ export default function Conta({ navigation }) {
                           (lojista) escolhido.
                         </Text>
                       </View>
-                    </Overlay>
+                    </Modal>
 
                     <PontosConta
                       tipoPontos={"Tickets"}
@@ -239,10 +231,12 @@ export default function Conta({ navigation }) {
                       }
                     />
 
-                    <Overlay
+                    <Modal
                       isVisible={infoTickets}
                       onBackdropPress={exibirTicketsPontos}
-                      overlayStyle={{ width: "90%" }}
+                      animationIn="fadeIn"
+                      animationOut="fadeOut"
+                      style={{ width: "90%" }}
                     >
                       <View>
                         <View
@@ -263,14 +257,8 @@ export default function Conta({ navigation }) {
                           >
                             Como funciona os tickets?
                           </Text>
-                          <TouchableOpacity>
-                            <Icon
-                              name="close-outline"
-                              type="ionicon"
-                              size={32}
-                              color="#000"
-                              onPress={exibirTicketsPontos}
-                            />
+                          <TouchableOpacity onPress={exibirTicketsPontos}>
+                            <Text style={{ color: "#000", fontSize: 32 }}>✕</Text>
                           </TouchableOpacity>
                         </View>
                         <Text
@@ -284,7 +272,7 @@ export default function Conta({ navigation }) {
                           pontuação e fidelização do Scotter (lojista) escolhido.
                         </Text>
                       </View>
-                    </Overlay>
+                    </Modal>
                   </SafeAreaView>
                 ))
               )}
@@ -327,26 +315,26 @@ export default function Conta({ navigation }) {
                   onPress={toggleOverlay}
                 >
                   {termos && (
-                    <Overlay
-                      overlayStyle={{ borderRadius: 20, alignItems: "center" }}
+                    <Modal
                       isVisible={termos}
                       onBackdropPress={toggleOverlay}
+                      animationIn="fadeIn"
+                      animationOut="fadeOut"
+                      style={{ borderRadius: 20, alignItems: "center" }}
                     >
-                      <Modal>
-                        <Button
-                          label={"Fechar"}
-                          onPress={toggleOverlay}
-                          backgroundColor={"#005098"}
-                          width={"90%"}
-                          textColor={"#FFFFFF"}
-                          padding={16}
-                          fontSize={16}
-                          borderRadius={32}
-                          marginBottom={5}
-                          fontWeight={"bold"}
-                        />
-                      </Modal>
-                    </Overlay>
+                      <Button
+                        label={"Fechar"}
+                        onPress={toggleOverlay}
+                        backgroundColor={"#005098"}
+                        width={"90%"}
+                        textColor={"#FFFFFF"}
+                        padding={16}
+                        fontSize={16}
+                        borderRadius={32}
+                        marginBottom={5}
+                        fontWeight={"bold"}
+                      />
+                    </Modal>
                   )}
 
                   <Text

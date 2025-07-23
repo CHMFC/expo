@@ -35,7 +35,7 @@ export default function SocialLoginComponent({ label }) {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: 'SEU_CLIENT_ID_EXPO_APPS.apps.googleusercontent.com',
-    iosClientId: 'SEU_CLIENT_ID_IOS.apps.googleusercontent.com',
+    iosClientId: '698611291998-6c9bsgsmiluinjveif5v6ke1b8p81l5o.apps.googleusercontent.com',
     androidClientId: 'SEU_CLIENT_ID_ANDROID.apps.googleusercontent.com',
     webClientId: 'SEU_CLIENT_ID_WEB.apps.googleusercontent.com',
   });
@@ -44,9 +44,6 @@ export default function SocialLoginComponent({ label }) {
     WebBrowser.maybeCompleteAuthSession();
     if (response?.type === 'success') {
       const { authentication } = response;
-      // Aqui você pode usar o token para autenticar no seu backend ou Firebase
-      // Exemplo: enviar o token para sua API, buscar dados do usuário, etc.
-      // authentication.accessToken
     }
   }, [response]);
 

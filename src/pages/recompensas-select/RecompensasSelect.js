@@ -104,11 +104,11 @@ export default function RecompensasSelect({ navigation }) {
         </View>
         <View>
           {filter
-            ? filter.map((produto) => (
+            ? filter.map((produto, idx) => (
               <ProdutoCard
                 produto={produto}
                 recompensa={true}
-                key={produto.id}
+                key={produto.id || idx}
                 onPress={() =>
                   navigation.navigate("ConfirmarResgate", {
                     produto: [
@@ -127,12 +127,12 @@ export default function RecompensasSelect({ navigation }) {
                 }
               />
             ))
-            : getData?.map((produto) => (
+            : getData?.map((produto, idx) => (
               <ProdutoCard
                 produto={produto}
                 recompensa={true}
                 resgate={false}
-                key={produto.id}
+                key={produto.id || idx}
                 onPress={() =>
                   navigation.navigate("ConfirmarResgate", {
                     produto: [

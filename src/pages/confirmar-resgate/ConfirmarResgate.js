@@ -142,8 +142,8 @@ export default function ConfirmarResgate({ route, navigation }) {
           duration={2000}
         /> */}
       </View>
-      {data?.map((loja) => (
-        <View style={{ backgroundColor: "#FFFFFF", flex: 1, paddingTop: 16 }} key={loja?.categoria?.id}>
+      {data?.map((loja, idx) => (
+        <View style={{ backgroundColor: "#FFFFFF", flex: 1, paddingTop: 16 }} key={loja?.id || idx}>
           <View>
             <Text style={styles.title}>{loja?.nomeFantasia}</Text>
             <Text style={styles.subtitle}>
@@ -151,8 +151,8 @@ export default function ConfirmarResgate({ route, navigation }) {
               {loja?.endereco?.uf}
             </Text>
           </View>
-          {produto?.map((produto) => (
-            <View key={produto?.id} style={styles.card.background}>
+          {produto?.map((produto, idx) => (
+            <View key={produto?.id || idx} style={styles.card.background}>
               <View style={styles.card.container}>
                 <View style={styles.card.content}>
                   {produto?.imagem ? (

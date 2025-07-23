@@ -168,10 +168,10 @@ export default function LojaResgate({ navigation, route }) {
         <Header icon={true} onPress={() => navigation.goBack()} />
 
         <View style={{ marginBottom: 80 }}>
-          {pedidos.map((item) => (
+          {pedidos.map((item, idx) => (
             <ConfirmarPedidoCard
               pedido={item}
-              key={item?.id}
+              key={item.id || idx}
               onPress={() => validarResgate(item)}
               onPressDelete={() => removerPedido(item?.id)}
             />

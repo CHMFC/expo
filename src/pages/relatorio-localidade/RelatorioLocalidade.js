@@ -152,70 +152,68 @@ export function RelatorioLocalidade({ navigation, route }) {
           </View>
 
           <View style={{ width: "100%", marginTop: 20, paddingLeft: "5%" }}>
-            {dadosClientes.map((cidade, index) => {
-              return (
-                <View
-                  key={index}
+            {dadosClientes.map((cidade, idx) => (
+              <View
+                key={cidade.id || idx}
+                style={{
+                  width: "95%",
+                  marginBottom: 5,
+                }}
+              >
+                <Text
                   style={{
-                    width: "95%",
-                    marginBottom: 5,
+                    width: "100%",
+                    fontSize: 18,
+                    color: "#272727",
+                    fontWeight: "bold",
                   }}
                 >
-                  <Text
-                    style={{
-                      width: "100%",
-                      fontSize: 18,
-                      color: "#272727",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {cidade.nome}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      color: "#272727",
-                    }}
-                  >
-                    {cidade.quantidadeClientes}{" "}
-                    {cidade.quantidadeClientes == 1 ? "Cliente" : "Clientes"}
-                  </Text>
+                  {cidade.nome}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#272727",
+                  }}
+                >
+                  {cidade.quantidadeClientes}{" "}
+                  {cidade.quantidadeClientes == 1 ? "Cliente" : "Clientes"}
+                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    backgroundColor: "lightgrey",
+                    marginBottom: 4,
+                    marginTop: 2,
+                    borderRadius: 8,
+                  }}
+                >
                   <View
                     style={{
-                      width: "100%",
-                      backgroundColor: "lightgrey",
-                      marginBottom: 4,
-                      marginTop: 2,
+                      width: `${(100 * cidade.porcentagemCidade) / 100}%`,
+                      height: 25,
+                      backgroundColor: `${cidade.nome == "Não Informado" ? "#EA3636" : "#1F5A9E"
+                        }`,
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                      paddingRight: 5,
                       borderRadius: 8,
                     }}
                   >
-                    <View
+                    <Text
                       style={{
-                        width: `${(100 * cidade.porcentagemCidade) / 100}%`,
-                        height: 25,
-                        backgroundColor: `${cidade.nome == "Não Informado" ? "#EA3636" : "#1F5A9E"
-                          }`,
-                        justifyContent: "center",
-                        alignItems: "flex-end",
-                        paddingRight: 5,
-                        borderRadius: 8,
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "white",
                       }}
                     >
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: "bold",
-                          color: "white",
-                        }}
-                      >
-                        {cidade.porcentagemCidade}%
-                      </Text>
-                    </View>
+                      {cidade.porcentagemCidade}%
+                    </Text>
                   </View>
                 </View>
-              );
-            })}
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>

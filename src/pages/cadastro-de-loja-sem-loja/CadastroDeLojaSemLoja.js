@@ -559,11 +559,11 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
                 }}
               >
                 <Picker.Item key="default" label="Categoria da Empresa" value="" />
-                {selectedCategory.map((data) => (
+                {selectedCategory.map((data, idx) => (
                   <Picker.item
-                    key={data?.id}
-                    label={data?.nome}
-                    value={data?.id}
+                    key={data.id || idx}
+                    label={data.nome}
+                    value={data.id}
                   />
                 ))}
               </Picker> */}

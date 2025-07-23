@@ -174,9 +174,9 @@ export default function RelatorioPedidos({ navigation, route }) {
                 alignItems: "center",
               }}
             >
-              {SkelletonItens.map((item, index) => (
+              {SkelletonItens.map((item, idx) => (
                 <Skelleton
-                  key={index}
+                  key={item.id || idx}
                   width={"90%"}
                   marginBottom={12}
                   round={16}
@@ -187,7 +187,7 @@ export default function RelatorioPedidos({ navigation, route }) {
           ) : (
             <View>
               {getData?.map((item, key) => (
-                <HistoricoCard item={item} key={key} />
+                <HistoricoCard item={item} key={item.id || key} />
               ))}
             </View>
           )}

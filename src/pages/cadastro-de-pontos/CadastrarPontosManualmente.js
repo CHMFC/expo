@@ -185,7 +185,7 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
           style={{ width: "100%", display: "flex", alignItems: "center" }}
         >
           {error && <Text>Nenhum usuário encontrado</Text>}
-          {usuarios?.map((usuario) => (
+          {usuarios?.map((usuario, idx) => (
             <SafeAreaView
               style={{
                 width: "90%",
@@ -195,7 +195,7 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
                 borderRadius: 25,
                 padding: 16,
               }}
-              key={usuario.id}
+              key={usuario.id || idx}
             >
               <View
                 style={{

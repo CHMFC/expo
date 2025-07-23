@@ -26,6 +26,7 @@ import usePersist from "../../hooks/usePersist";
 // Sugestão: use react-native-mask-text (compatível com Expo) e @react-native-community/datetimepicker para datas.
 import { API_URL } from "../../const/apiUrl";
 import Header from "../../components/header/Header";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -315,23 +316,22 @@ export default function Register({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          {/*
-          <DatePicker
-            modal
-            open={dataNascimentoVisivel}
-            date={dataNascimento}
-            onConfirm={(date) => confirmarDataNascimento(date)}
-            onCancel={esconderDataNascimento}
-            maximumDate={dataMaxima}
-            minimumDate={new Date(1900, 0, 1)}
-            locale="pt-BR"
-            mode="date"
-            title="Selecione sua data de nascimento"
-            confirmText="Confirmar"
-            cancelText="Cancelar"
-            theme="light"
-          />
-          */}
+          {dataNascimentoVisivel && (
+            <DateTimePicker
+              value={dataNascimento}
+              mode="date"
+              display="default"
+              onChange={(event, selectedDate) => {
+                if (event.type === 'set') {
+                  confirmarDataNascimento(selectedDate || dataNascimento);
+                } else {
+                  esconderDataNascimento();
+                }
+              }}
+              maximumDate={dataMaxima}
+              minimumDate={new Date(1900, 0, 1)}
+            />
+          )}
 
           {senhaError && (
             <Text

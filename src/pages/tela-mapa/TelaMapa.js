@@ -117,9 +117,9 @@ export default function TelaMapa({ navigation }) {
             />
 
             {mapFilter &&
-              mapFilter.map((loja) => (
+              mapFilter.map((loja, idx) => (
                 <Marker
-                  key={loja?.id}
+                  key={loja?.id || idx}
                   coordinate={{
                     latitude: parseFloat(loja?.endereco?.latitude),
                     longitude: parseFloat(loja?.endereco?.longitude),
@@ -129,9 +129,9 @@ export default function TelaMapa({ navigation }) {
               ))}
 
             {isFiltered.length > 0
-              ? isFiltered.map((loja) => (
+              ? isFiltered.map((loja, idx) => (
                   <Marker
-                    key={loja?.id}
+                    key={loja?.id || idx}
                     coordinate={{
                       latitude: parseFloat(loja?.endereco?.latitude),
                       longitude: parseFloat(loja?.endereco?.longitude),
@@ -139,9 +139,9 @@ export default function TelaMapa({ navigation }) {
                     title={loja?.nomeFantasia}
                   />
                 ))
-              : totalData.map((loja) => (
+              : totalData.map((loja, idx) => (
                   <Marker
-                    key={loja?.id}
+                    key={loja?.id || idx}
                     coordinate={{
                       latitude: parseFloat(loja?.endereco?.latitude),
                       longitude: parseFloat(loja?.endereco?.longitude),
@@ -173,9 +173,9 @@ export default function TelaMapa({ navigation }) {
             }}
           >
             {mapFilter &&
-              mapFilter.map((loja) => (
+              mapFilter.map((loja, idx) => (
                 <Marker
-                  key={loja?.id}
+                  key={loja?.id || idx}
                   coordinate={{
                     latitude: parseFloat(loja?.endereco?.latitude),
                     longitude: parseFloat(loja?.endereco?.longitude),
@@ -185,9 +185,9 @@ export default function TelaMapa({ navigation }) {
               ))}
 
             {isFiltered.length > 0
-              ? isFiltered.map((loja) => (
+              ? isFiltered.map((loja, idx) => (
                   <Marker
-                    key={loja?.id}
+                    key={loja?.id || idx}
                     coordinate={{
                       latitude: parseFloat(loja?.endereco?.latitude),
                       longitude: parseFloat(loja?.endereco?.longitude),
@@ -195,9 +195,9 @@ export default function TelaMapa({ navigation }) {
                     title={loja?.nomeFantasia}
                   />
                 ))
-              : totalData.map((loja) => (
+              : totalData.map((loja, idx) => (
                   <Marker
-                    key={loja?.id}
+                    key={loja?.id || idx}
                     coordinate={{
                       latitude: parseFloat(loja?.endereco?.latitude),
                       longitude: parseFloat(loja?.endereco?.longitude),

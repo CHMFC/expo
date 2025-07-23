@@ -170,8 +170,8 @@ export default function MeusPedidos({ navigation, route }) {
           </View>
         ) : (
           <View style={styles.containerProdutos}>
-            {getData?.map((pedido) => (
-              <PedidoCard pedido={pedido} key={pedido?.id} onRefresh={() => setIsLoading(true)} />
+            {getData?.map((pedido, idx) => (
+              <PedidoCard pedido={pedido} key={pedido.id || idx} onRefresh={() => setIsLoading(true)} />
             ))}
           </View>
         )}

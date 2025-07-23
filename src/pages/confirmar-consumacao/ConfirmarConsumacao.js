@@ -217,8 +217,8 @@ export default function ConfirmarConsumacao({ route, navigation }) {
         /> */}
       </View>
       <View style={{ paddingTop: 16 }}>
-        {data?.map((loja) => (
-          <View key={loja?.categoria?.id}>
+        {data?.map((loja, idx) => (
+          <View key={loja?.id || idx}>
             <View>
             <Text style={styles.title}>{loja?.nomeFantasia}</Text>
             <Text style={styles.subtitle}>
@@ -226,8 +226,8 @@ export default function ConfirmarConsumacao({ route, navigation }) {
               {loja?.endereco?.uf}
             </Text>
           </View>
-          {produto?.map((produto) => (
-            <View key={produto?.id} style={styles.card.background}>
+          {produto?.map((produto, idx) => (
+            <View key={produto?.id || idx} style={styles.card.background}>
               <View style={styles.card.container}>
                 <View style={styles.card.content}>
                   {produto?.imagem ? (
