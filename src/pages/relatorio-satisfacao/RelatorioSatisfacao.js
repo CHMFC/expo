@@ -5,11 +5,11 @@ import { Header } from "../../components/header/Header";
 import { Nav } from "../../components/nav/Nav";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import { Icon, Image, Overlay } from "react-native-elements";
+// import { Icon, Image, Overlay } from "react-native-elements";
+// import { PieChart } from "react-native-gifted-charts";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo) e Victory Native ou react-native-svg-charts para gráficos.
 import { TouchableOpacity } from "react-native";
-import { PieChart } from "react-native-gifted-charts";
-
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Data } from "../../components/datas/Data";
 
 import * as Sharing from 'expo-sharing';
@@ -165,14 +165,14 @@ export function RelatorioSatisfacao({ navigation, route }) {
               onPress={mostrarDataInicio}
             />
 
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFinal
                 .getDate()
@@ -184,7 +184,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -192,7 +192,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
 
             <View
               style={{
@@ -216,12 +216,12 @@ export function RelatorioSatisfacao({ navigation, route }) {
                   setCompartilhar(true);
                 }}
               >
-                <Icon
+                {/* <Icon
                   name="share-social-outline"
                   color="white"
                   type="ionicon"
                   size={24}
-                />
+                /> */}
               </TouchableOpacity>
             </View>
           </View>
@@ -249,13 +249,13 @@ export function RelatorioSatisfacao({ navigation, route }) {
                   Total de Pesquisas
                 </Text>
                 <TouchableOpacity onPress={toggleOverlay}>
-                  <Icon
+                  {/* <Icon
                     name="alert-circle"
                     color="white"
                     type="ionicon"
                     size={16}
                     style={{ marginHorizontal: 4, marginTop: 4 }}
-                  />
+                  /> */}
                 </TouchableOpacity>
               </View>
               <Text
@@ -357,7 +357,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
               paddingLeft: 20,
             }}
           >
-            <PieChart
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagens?.respondeu || 0,
@@ -397,8 +397,8 @@ export function RelatorioSatisfacao({ navigation, route }) {
                   </View>
                 );
               }}
-            />
-            <PieChart
+            /> */}
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagens?.naoRespondeu || 0,
@@ -438,7 +438,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
 
@@ -482,7 +482,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
                 {dadosClientes?.medias?.atendimento?.media.toFixed(1)}
               </Text>
 
-              <Icon type="font-awesome" name="star" color="gold" />
+              {/* <Icon type="font-awesome" name="star" color="gold" /> */}
             </View>
           </View>
 
@@ -520,7 +520,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
                 {dadosClientes?.medias?.limpeza?.media.toFixed(1)}
               </Text>
 
-              <Icon type="font-awesome" name="star" color="gold" />
+              {/* <Icon type="font-awesome" name="star" color="gold" /> */}
             </View>
           </View>
 
@@ -558,7 +558,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
                 {dadosClientes?.medias?.qualidade?.media.toFixed(1)}
               </Text>
 
-              <Icon type="font-awesome" name="star" color="gold" />
+              {/* <Icon type="font-awesome" name="star" color="gold" /> */}
             </View>
           </View>
 
@@ -596,7 +596,7 @@ export function RelatorioSatisfacao({ navigation, route }) {
                 {dadosClientes?.medias?.variedade?.media.toFixed(1)}
               </Text>
 
-              <Icon type="font-awesome" name="star" color="gold" />
+              {/* <Icon type="font-awesome" name="star" color="gold" /> */}
             </View>
           </View>
 
@@ -632,17 +632,17 @@ export function RelatorioSatisfacao({ navigation, route }) {
                 {dadosClientes?.medias?.preco?.media.toFixed(1)}
               </Text>
 
-              <Icon type="font-awesome" name="star" color="gold" />
+              {/* <Icon type="font-awesome" name="star" color="gold" /> */}
             </View>
           </View>
         </View>
       </ScrollView>
 
-      <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+      {/* <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
         <Text style={{ fontSize: 18, fontWeight: "Regular", color: "black" }}>
           Pedidos validados nos últimos 1 ano e 6 meses.
         </Text>
-      </Overlay>
+      </Overlay> */}
       <Nav />
     </SafeAreaView>
   );

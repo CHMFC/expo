@@ -12,18 +12,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Avatar } from "react-native-elements";
+// import { Image, Avatar } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para imagens e avatares.
 
 import axios from "axios";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Data } from "../../components/datas/Data";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { Data } from "../../components/datas/Data";
 
-import { BarChart } from "react-native-gifted-charts";
+// import { BarChart } from "react-native-gifted-charts";
 
-import { captureScreen } from "react-native-view-shot";
+// import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo), Victory Native ou react-native-svg-charts para gráficos, e expo-screen-capture para captura de tela.
 
 export function RelatorioGeneroShare({ navigation, route }) {
   const { lojaId, dataComeco, dataFim, lojaNome, lojaImagem } = route.params;
@@ -99,24 +101,24 @@ export function RelatorioGeneroShare({ navigation, route }) {
           }
 
           setTimeout(() => {
-            captureScreen({
-              format: "jpg",
-              quality: 1,
-              filename: "relatorio-de-genero",
-              filenames: ["relatorio-de-genero"],
-            }).then(
-              (uri) => {
-                navigation.navigate("RelatorioGenero", {
-                  lojaId: lojaId,
-                  printUrl: uri,
-                  lojaNome: lojaNome,
-                  lojaImagem: lojaImagem,
-                });
-              },
-              (error) => {
-                return null;
-              }
-            );
+            // captureScreen({
+            //   format: "jpg",
+            //   quality: 1,
+            //   filename: "relatorio-de-genero",
+            //   filenames: ["relatorio-de-genero"],
+            // }).then(
+            //   (uri) => {
+            //     navigation.navigate("RelatorioGenero", {
+            //       lojaId: lojaId,
+            //       printUrl: uri,
+            //       lojaNome: lojaNome,
+            //       lojaImagem: lojaImagem,
+            //     });
+            //   },
+            //   (error) => {
+            //     return null;
+            //   }
+            // );
           }, 500);
         })
         .catch((err) => {
@@ -150,12 +152,12 @@ export function RelatorioGeneroShare({ navigation, route }) {
   const confirmarDataInicio = (date) => {
     setDataInicio(date);
     esconderDataInicio();
-    setIsLoading(true);
+    // setIsLoading(true);
   };
 
   const confirmarDataFinal = (date) => {
     setDataFinal(date);
-    setIsLoading(true);
+    // setIsLoading(true);
     esconderDataFinal();
   };
 
@@ -186,12 +188,12 @@ export function RelatorioGeneroShare({ navigation, route }) {
             borderBottomWidth: 1,
           }}
         >
-          <Avatar
+          {/* <Avatar
             rounded
             size={64}
             source={{ uri: lojaImagem }}
             containerStyle={{ backgroundColor: "gray", marginRight: 16 }}
-          />
+          /> */}
           <Text
             style={{
               width: "77%",
@@ -227,32 +229,32 @@ export function RelatorioGeneroShare({ navigation, route }) {
           }}
         >
           <View style={{ flexDirection: "row", marginHorizontal: 12 }}>
-            <Data
+            {/* <Data
               data={`${dataComeco.substring(8, 10)}/${dataComeco.substring(
                 5,
                 7
               )}/${dataComeco.substring(0, 4)}`}
               periodo={"início"}
               onPress={mostrarDataInicio}
-            />
-            <DateTimePickerModal
+            /> */}
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
 
-            <Data
+            {/* <Data
               data={`${dataFim.substring(8, 10)}/${dataFim.substring(
                 5,
                 7
               )}/${dataFim.substring(0, 4)}`}
               periodo={"final"}
               onPress={mostrarDataFinal}
-            />
-            <DateTimePickerModal
+            /> */}
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -260,7 +262,7 @@ export function RelatorioGeneroShare({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
           </View>
 
           <View
@@ -481,7 +483,7 @@ export function RelatorioGeneroShare({ navigation, route }) {
                   marginTop: width <= 400 ? -65 : -90,
                 }}
               >
-                <BarChart
+                {/* <BarChart
                   horizontal
                   barWidth={24}
                   height={width <= 400 ? 354 : width * 0.9}
@@ -530,7 +532,7 @@ export function RelatorioGeneroShare({ navigation, route }) {
                       ],
                     },
                   ]}
-                />
+                /> */}
               </View>
             </View>
 

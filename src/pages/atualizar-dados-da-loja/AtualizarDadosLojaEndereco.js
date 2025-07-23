@@ -1,5 +1,5 @@
 import { Text } from "@rneui/base";
-import { ScrollView, View, SafeAreaView } from "react-native";
+import { ScrollView, View, SafeAreaView, Alert } from "react-native";
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
 import { styles } from "./atualizarDadosLojaEnderecoStyles";
@@ -9,7 +9,6 @@ import Nav from "../../components/nav/Nav";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { StatusBar } from "react-native";
-import FlashMessage, { showMessage } from "react-native-flash-message";
 import { Controller, useForm } from "react-hook-form";
 
 export default function AtualizarDadosLojaEndereco({ navigation, route }) {
@@ -58,20 +57,9 @@ export default function AtualizarDadosLojaEndereco({ navigation, route }) {
   }, [infoLoja, setValue]);
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        lineHeight: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert(title, mensagem, [
+      { text: "OK", onPress: () => {} },
+    ]);
   };
 
   function navegarConfirmarAtualizaçao() {

@@ -1,4 +1,4 @@
-import { ScrollView, View, SafeAreaView, StatusBar } from "react-native";
+import { ScrollView, View, SafeAreaView, StatusBar, Alert } from "react-native";
 import { useState, useEffect } from "react";
 import { Text } from "@rneui/base";
 import { styles } from "./ticketMedioDiarioStyle";
@@ -9,7 +9,7 @@ import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import usePersist from "../../hooks/usePersist";
 import axios from "axios";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
 import { API_URL } from "../../const/apiUrl";
 
 export default function TicketMedioDiario({ route, navigation }) {
@@ -59,19 +59,7 @@ export default function TicketMedioDiario({ route, navigation }) {
   }
 
   const mostrarMensagem = (mensagem) => {
-    showMessage({
-      message: "Sucesso",
-      description: mensagem,
-      type: "success",
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert("Sucesso", mensagem);
   };
 
   useEffect(() => {
@@ -113,7 +101,7 @@ export default function TicketMedioDiario({ route, navigation }) {
       >
         
         <View>
-          <FlashMessage
+          {/* <FlashMessage
             textStyle={{
               fontSize: 20,
               justifyContent: "center",
@@ -122,7 +110,7 @@ export default function TicketMedioDiario({ route, navigation }) {
               textAlign: "center",
             }}
             duration={1500}
-          />
+          /> */}
         </View>
 
         <Text style={styles.title}>Ticket médo diário</Text>

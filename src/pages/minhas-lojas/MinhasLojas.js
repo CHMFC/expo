@@ -1,7 +1,7 @@
 import { SafeAreaView, View, ScrollView, RefreshControl, Platform } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 import { styles } from "./MinhasLojasStyles";
-import { Text } from "react-native-elements";
+import { Text } from "react-native";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import Button from "../../components/button/Button";

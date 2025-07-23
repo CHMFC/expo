@@ -7,16 +7,18 @@ import {
   ScrollView,
   Dimensions,
   StatusBar,
+  Image,
+  Modal,
 } from "react-native";
 import { Header } from "../../components/header/Header";
 import { Nav } from "../../components/nav/Nav";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import { Icon, Image, Overlay } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
-import { PieChart } from "react-native-gifted-charts";
-
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { PieChart } from "react-native-gifted-charts";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Sugestão: use Victory Native ou react-native-svg-charts para gráficos e @react-native-community/datetimepicker para datas.
 import { Data } from "../../components/datas/Data";
 
 import * as Sharing from 'expo-sharing';
@@ -168,14 +170,14 @@ export function RelatorioCliente({ navigation, route }) {
               onPress={mostrarDataInicio}
             />
 
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFinal
                 .getDate()
@@ -187,7 +189,7 @@ export function RelatorioCliente({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -195,7 +197,7 @@ export function RelatorioCliente({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
 
             <View
               style={{
@@ -219,10 +221,9 @@ export function RelatorioCliente({ navigation, route }) {
                   setCompartilhar(true);
                 }}
               >
-                <Icon
+                <Ionicons
                   name="share-social-outline"
                   color="white"
-                  type="ionicon"
                   size={24}
                 />
               </TouchableOpacity>
@@ -251,10 +252,9 @@ export function RelatorioCliente({ navigation, route }) {
                   Clientes cadastrados
                 </Text>
                 <TouchableOpacity onPress={toggleOverlay}>
-                  <Icon
+                  <Ionicons
                     name="alert-circle"
                     color="white"
-                    type="ionicon"
                     size={16}
                     style={{ marginHorizontal: 4, marginTop: 4 }}
                   />
@@ -394,7 +394,7 @@ export function RelatorioCliente({ navigation, route }) {
               paddingLeft: 20,
             }}
           >
-            <PieChart
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagemAtivos
@@ -450,8 +450,8 @@ export function RelatorioCliente({ navigation, route }) {
                   </View>
                 );
               }}
-            />
-            <PieChart
+            /> */}
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagemInativos
@@ -507,7 +507,7 @@ export function RelatorioCliente({ navigation, route }) {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
 
@@ -518,11 +518,11 @@ export function RelatorioCliente({ navigation, route }) {
           />
         ) : null} */}
       </ScrollView>
-      <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+      <Modal isVisible={visible} onBackdropPress={toggleOverlay}>
         <Text style={{ fontSize: 18, fontWeight: "Regular", color: "black" }}>
           Clientes cadastrados nos últimos 1 ano e 6 meses.
         </Text>
-      </Overlay>
+      </Modal>
       <Nav />
     </SafeAreaView>
   );

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
-import { Avatar, Overlay } from "react-native-elements";
+// import { Avatar, Overlay } from "react-native-elements";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import { styles } from "./ConfirmarConsumacaoStyles";
 import usePersist from "../../hooks/usePersist";
 import Button from "../../components/button/Button";
 import axios from "axios";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
 import useNotification from "../../hooks/useNotification";
 import { API_URL } from "../../const/apiUrl";
 import ScreenContainer from "../../components/screenContainer/ScreenContainer";
@@ -79,28 +79,28 @@ export default function ConfirmarConsumacao({ route, navigation }) {
   }, []);
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        lineHeight: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-        textAlign: "center",
-      },
-      textStyle: {
-        fontSize: 18,
-        lineHeight: 18,
-        marginTop: "auto",
-        textAlign: "center",
-        paddingHorizontal: 20,
-      },
-    });
+    // showMessage({
+    //   message: title,
+    //   description: mensagem,
+    //   type: type,
+    //   style: { height: "100%" },
+    //   titleStyle: {
+    //     fontWeight: "bold",
+    //     fontSize: 20,
+    //     lineHeight: 20,
+    //     justifyContent: "center",
+    //     marginTop: "auto",
+    //     alignSelf: "center",
+    //     textAlign: "center",
+    //   },
+    //   textStyle: {
+    //     fontSize: 18,
+    //     lineHeight: 18,
+    //     marginTop: "auto",
+    //     textAlign: "center",
+    //     paddingHorizontal: 20,
+    //   },
+    // });
   };
 
   const solicitarRecompensa = async (
@@ -205,7 +205,7 @@ export default function ConfirmarConsumacao({ route, navigation }) {
         iconNotifications={false}
       />
       <View>
-        <FlashMessage
+        {/* <FlashMessage
           textStyle={{
             fontSize: 20,
             justifyContent: "center",
@@ -214,7 +214,7 @@ export default function ConfirmarConsumacao({ route, navigation }) {
             textAlign: "center",
           }}
           duration={2000}
-        />
+        /> */}
       </View>
       <View style={{ paddingTop: 16 }}>
         {data?.map((loja) => (
@@ -231,17 +231,35 @@ export default function ConfirmarConsumacao({ route, navigation }) {
               <View style={styles.card.container}>
                 <View style={styles.card.content}>
                   {produto?.imagem ? (
-                    <Avatar
-                      source={{ uri: produto?.imagem }}
-                      rounded
-                      size="medium"
-                    />
+                    <View
+                      style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: 25,
+                        backgroundColor: "#E0E0E0",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={{ fontSize: 20 }}>
+                        {produto?.nome?.charAt(0)}
+                      </Text>
+                    </View>
                   ) : (
-                    <Avatar
-                      source={require("../../assets/mapavazio.png")}
-                      rounded
-                      size="medium"
-                    />
+                    <View
+                      style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: 25,
+                        backgroundColor: "#E0E0E0",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={{ fontSize: 20 }}>
+                        {produto?.nome?.charAt(0)}
+                      </Text>
+                    </View>
                   )}
                   <View style={styles.card.textContainer}>
                     <Text style={styles.card.product}>{produto?.nome}</Text>

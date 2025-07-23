@@ -6,7 +6,8 @@ import {
     Text,
     TextInput,
 } from "react-native";
-import { Overlay, Avatar, CheckBox, Icon } from "react-native-elements";
+// import { Overlay, Avatar, CheckBox, Icon } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para overlays, avatares, checkboxes e ícones.
 import { Header } from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import AsyncStorage from "@react-native-async-storage/async-storage";

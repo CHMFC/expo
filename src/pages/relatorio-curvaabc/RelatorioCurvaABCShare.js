@@ -5,7 +5,7 @@ import { Header } from "../../components/header/Header";
 
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Avatar } from "react-native-elements";
+import { Image } from "react-native";
 
 import axios from "axios";
 
@@ -17,6 +17,7 @@ import axios from "axios";
 // import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
+import { captureScreen } from "react-native-view-shot";
 
 export function RelatorioCurvaABCShare({ navigation, route }) {
   const {
@@ -92,27 +93,16 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
           }
 
           setTimeout(() => {
-            // captureScreen({
-            //   format: "jpg",
-            //   quality: 1,
-            //   filename: "relatorio-de-curva-abc",
-            //   filenames: ["relatorio-de-curva-abc"],
-            // }).then(
-              (uri) => {
-                navigation.navigate("RelatorioCurvaABC", {
-                  lojaId: lojaId,
-                  printUrl: uri,
-                  lojaNome: lojaNome,
-                  lojaImagem: lojaImagem,
-                  curvaA: curvaA,
-                  curvaB: curvaB,
-                  curvaC: curvaC,
-                });
-              },
-              (error) => {
-                return null;
-              }
-            );
+            // Funcionalidade de captura de tela removida para compatibilidade com Expo Go
+            navigation.navigate("RelatorioCurvaABC", {
+              lojaId: lojaId,
+              printUrl: null, // Não há screenshot
+              lojaNome: lojaNome,
+              lojaImagem: lojaImagem,
+              curvaA: curvaA,
+              curvaB: curvaB,
+              curvaC: curvaC,
+            });
           }, 500);
         })
               .catch((err) => {
@@ -182,12 +172,21 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
             borderBottomWidth: 1,
           }}
         >
-          <Avatar
-            rounded
-            size={64}
-            source={{ uri: lojaImagem }}
-            containerStyle={{ backgroundColor: "gray", marginRight: 16 }}
-          />
+          <View
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 32,
+              overflow: "hidden",
+              backgroundColor: "gray",
+              marginRight: 16,
+            }}
+          >
+            <Image
+              source={{ uri: lojaImagem }}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
           <Text
             style={{
               width: "77%",

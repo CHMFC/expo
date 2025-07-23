@@ -16,6 +16,8 @@ export default function StorageContextProvider({ children }) {
   const [deviceToken, setDeviceToken] = useState();
 
   useEffect(() => {
+    // --- Código de push notification desativado para compatibilidade com Expo Go ---
+    /*
     const fetchToken = async () => {
       const granted = await messaging().requestPermission();
       if (granted) {
@@ -38,6 +40,7 @@ export default function StorageContextProvider({ children }) {
     return () => {
       onTokenRefreshListener();
     };
+*/
   }, []);
 
   useEffect(() => {

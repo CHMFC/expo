@@ -4,12 +4,14 @@ import { View, SafeAreaView, Text, ScrollView } from "react-native";
 import { Header } from "../../components/header/Header";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import { Icon, Avatar } from "react-native-elements";
-import { PieChart } from "react-native-gifted-charts";
+// import { Icon, Avatar } from "react-native-elements";
+// import { PieChart } from "react-native-gifted-charts";
+// import { captureScreen } from "react-native-view-shot";
+// Sugestão: use Victory Native ou react-native-svg-charts para gráficos e expo-screen-capture para captura de tela.
 
 
 import { Data } from "../../components/datas/Data";
-import { captureScreen } from "react-native-view-shot";
+// import { captureScreen } from "react-native-view-shot";
 import { API_URL } from "../../const/apiUrl";
 
 export function RelatorioSatisfacaoShare({ navigation, route }) {

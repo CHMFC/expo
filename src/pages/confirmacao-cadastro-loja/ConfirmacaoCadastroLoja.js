@@ -7,17 +7,19 @@ import {
   Platform,
   Alert,
   TextInput,
-  StatusBar
+  StatusBar,
+  Text,
+  Switch
 } from "react-native";
 import { Icon } from "@rneui/base";
 import { styles } from "./ConfirmacaoCadastroLojaStyles";
-import { Text, Switch } from "react-native-elements";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
+// Substitua showMessage por Alert.alert("Título", "Mensagem");
 import { API_URL } from "../../const/apiUrl";
 import { Overlay } from "@rneui/themed";
 
@@ -114,19 +116,7 @@ export default function ConfirmacaoCadastroLoja({ navigation, route }) {
   }
 
   const mostrarMensagem = (mensagem) => {
-    showMessage({
-      message: "Sucesso",
-      description: mensagem,
-      type: "success",
-      style: { height: 100 },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert("Sucesso", mensagem);
   };
 
   return (
@@ -141,7 +131,7 @@ export default function ConfirmacaoCadastroLoja({ navigation, route }) {
         iconNotifications={false}
       />
       <View>
-        <FlashMessage
+        {/* <FlashMessage
           textStyle={{
             fontSize: 20,
             justifyContent: "center",
@@ -150,7 +140,7 @@ export default function ConfirmacaoCadastroLoja({ navigation, route }) {
             textAlign: "center",
           }}
           duration={1500}
-        />
+        /> */}
       </View>
       <ScrollView 
         showsVerticalScrollIndicator={false}

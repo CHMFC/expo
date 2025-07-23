@@ -6,7 +6,8 @@ import { Nav } from "../../components/nav/Nav";
 
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Icon } from "react-native-elements";
+import { Image } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 import axios from "axios";
 
@@ -235,10 +236,9 @@ export function RelatorioCurvaABC({ navigation, route }) {
                   setCompartilhar(true);
                 }}
               >
-                <Icon
+                <Ionicons
                   name="share-social-outline"
                   color="white"
-                  type="ionicon"
                   size={24}
                 />
               </TouchableOpacity>

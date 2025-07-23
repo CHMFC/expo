@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import { Text } from "react-native-elements";
+import { Text } from "react-native";
 import { SafeAreaView, View, ScrollView, RefreshControl } from "react-native";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";

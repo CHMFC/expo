@@ -1,6 +1,7 @@
 import { View, SafeAreaView } from "react-native";
 import Button from "../../components/button/Button";
-import { Icon, Text } from "react-native-elements";
+// import { Icon, Text } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para ícones e textos.
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 
@@ -20,8 +21,8 @@ export default function SucessoAoCadastrarProduto({ navigation }) {
           bottom: 64,
         }}
       >
-        <Icon name="checkmark-circle-outline" type="ionicon" color="#005098" size={96} />
-        <Text
+        {/* <Icon name="checkmark-circle-outline" type="ionicon" color="#005098" size={96} /> */}
+        {/* <Text
           style={{
             color: "#005098",
             fontSize: 24,
@@ -30,7 +31,7 @@ export default function SucessoAoCadastrarProduto({ navigation }) {
           }}
         >
           Produto cadastrado com sucesso!
-        </Text>
+        </Text> */}
         <Button
           label={"Voltar ao menu"}
           onPress={() => navigation.navigate("OpcoesLoja")}

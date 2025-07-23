@@ -3,18 +3,21 @@ import { Dimensions, TouchableOpacity } from "react-native";
 
 import { Header } from "../../components/header/Header";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Data } from "../../components/datas/Data";
 
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Avatar } from "react-native-elements";
+// import { Image, Avatar } from "react-native-elements";
+// import { BarChart } from "react-native-gifted-charts";
+// import { captureScreen } from "react-native-view-shot";
+// Sugestão: use componentes Expo-friendly para gráficos e captura de tela.
 
 import axios from "axios";
 
-import { BarChart } from "react-native-gifted-charts";
+// import { BarChart } from "react-native-gifted-charts";
 
-import { captureScreen } from "react-native-view-shot";
+// import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -111,24 +114,24 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
           }
 
           setTimeout(() => {
-            captureScreen({
-              format: "jpg",
-              quality: 1,
-              filename: "relatorio-de-faixa-etaria",
-              filenames: ["relatorio-de-faixa-etaria"],
-            }).then(
-              (uri) => {
-                navigation.navigate("RelatorioFaixaEtaria", {
-                  lojaId: lojaId,
-                  printUrl: uri,
-                  lojaNome: lojaNome,
-                  lojaImagem: lojaImagem,
-                });
-              },
-              (error) => {
-                return null;
-              }
-            );
+            // captureScreen({
+            //   format: "jpg",
+            //   quality: 1,
+            //   filename: "relatorio-de-faixa-etaria",
+            //   filenames: ["relatorio-de-faixa-etaria"],
+            // }).then(
+            //   (uri) => {
+            //     navigation.navigate("RelatorioFaixaEtaria", {
+            //       lojaId: lojaId,
+            //       printUrl: uri,
+            //       lojaNome: lojaNome,
+            //       lojaImagem: lojaImagem,
+            //     });
+            //   },
+            //   (error) => {
+            //     return null;
+            //   }
+            // );
           }, 500);
         })
         .catch((err) => {
@@ -198,12 +201,12 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
             borderBottomWidth: 1,
           }}
         >
-          <Avatar
+          {/* <Avatar
             rounded
             size={54}
             source={{ uri: lojaImagem }}
             containerStyle={{ backgroundColor: "gray", marginRight: 16 }}
-          />
+          /> */}
           <Text
             style={{
               width: "77%",
@@ -248,14 +251,14 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
               periodo={"início"}
               onPress={mostrarDataInicio}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFim.substring(8, 10)}/${dataFim.substring(
                 5,
@@ -264,7 +267,7 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -272,7 +275,7 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
           </View>
           <View
             style={{
@@ -534,7 +537,7 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
                   marginTop: width <= 400 ? -65 : -90,
                 }}
               >
-                <BarChart
+                {/* <BarChart
                   horizontal
                   barWidth={24}
                   height={width <= 400 ? 354 : width * 0.9}
@@ -622,7 +625,7 @@ export function RelatorioFaixaEtariaShare({ navigation, route }) {
                       ],
                     },
                   ]}
-                />
+                /> */}
               </View>
             </View>
 

@@ -7,8 +7,9 @@ import {
   Alert,
 } from "react-native";
 import { styles } from "./ConfirmarUpdateProdutoStyles";
-import { Text } from "react-native-elements";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import { Text } from "react-native-elements";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
+// Sugestão: use componentes Expo-friendly para mensagens e textos.
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
@@ -33,19 +34,20 @@ export default function ConfirmarUpdateProduto({ route, navigation }) {
   const { tokenStored } = usePersist();
 
   const mostrarMensagem = (mensagem) => {
-    showMessage({
-      message: "Sucesso",
-      description: mensagem,
-      type: "success",
-      style: { height: 100 },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    // showMessage({
+    //   message: "Sucesso",
+    //   description: mensagem,
+    //   type: "success",
+    //   style: { height: 100 },
+    //   titleStyle: {
+    //     fontWeight: "bold",
+    //     fontSize: 20,
+    //     justifyContent: "center",
+    //     marginTop: "auto",
+    //     alignSelf: "center",
+    //   },
+    // });
+    Alert.alert("Sucesso", mensagem);
   };
 
   const criarProduto = async () => {
@@ -107,7 +109,7 @@ export default function ConfirmarUpdateProduto({ route, navigation }) {
       />
       <View style={{flex: 1, backgroundColor: "white"}}>
       <View>
-        <FlashMessage
+        {/* <FlashMessage
           textStyle={{
             fontSize: 20,
             justifyContent: "center",
@@ -116,50 +118,50 @@ export default function ConfirmarUpdateProduto({ route, navigation }) {
             textAlign: "center",
           }}
           duration={1500}
-        />
+        /> */}
       </View>
       <View style={styles.text}>
-        <Text style={styles.textH3}>Confirmar Informações</Text>
+        {/* <Text style={styles.textH3}>Confirmar Informações</Text> */}
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.details}>
           <View style={styles.textContainer}>
             {nome && (
               <>
-                <Text style={styles.textTitulo}>Nome do produto</Text>
-                <Text style={styles.textInfoUsuario}>{nome}</Text>
+                {/* <Text style={styles.textTitulo}>Nome do produto</Text> */}
+                {/* <Text style={styles.textInfoUsuario}>{nome}</Text> */}
               </>
             )}
 
             {recompensa && (
               <>
-                <Text style={styles.textTitulo}>Recompensa</Text>
-                <Text style={styles.textInfoUsuario}>
+                {/* <Text style={styles.textTitulo}>Recompensa</Text> */}
+                {/* <Text style={styles.textInfoUsuario}>
                   {recompensa ? recompensa : 0}{" "}
                   {tipoPonto === "produto" ? "tickets" : "pontos"}
-                </Text>
+                </Text> */}
               </>
             )}
 
             {resgate && (
               <>
-                <Text style={styles.textTitulo}>Resgate</Text>
-                <Text style={styles.textInfoUsuario}>
+                {/* <Text style={styles.textTitulo}>Resgate</Text> */}
+                {/* <Text style={styles.textInfoUsuario}>
                   {resgate ? resgate : 0}{" "}
                   {tipoPonto === "produto" ? "tickets" : "pontos"}
-                </Text>
+                </Text> */}
               </>
             )}
 
             {descricao && (
               <>
-                <Text style={styles.textTitulo}>Descrição</Text>
-                <Text style={styles.textInfoUsuario}>{descricao}</Text>
+                {/* <Text style={styles.textTitulo}>Descrição</Text> */}
+                {/* <Text style={styles.textInfoUsuario}>{descricao}</Text> */}
               </>
             )}
             {imagem && (
               <>
-                <Text style={styles.textImage}>Imagem escolhida</Text>
+                {/* <Text style={styles.textImage}>Imagem escolhida</Text> */}
                 <View>
                   <Image style={styles.image} source={{ uri: imagem.uri }} />
                 </View>

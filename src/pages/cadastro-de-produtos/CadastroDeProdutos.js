@@ -11,7 +11,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { CheckBox, Icon, Overlay, Switch } from "react-native-elements";
+// import { CheckBox, Icon, Overlay, Switch } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para checkboxes, ícones, overlays e switches.
 
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Platform,
+  Modal,
 } from "react-native";
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
@@ -18,7 +19,7 @@ import Nav from "../../components/nav/Nav";
 // import { Picker } from "@react-native-picker/picker";
 // Sugestão: use um Picker customizado ou de alguma lib Expo-friendly, como react-native-paper DropdownMenu.
 import * as ImagePicker from 'expo-image-picker';
-import { Icon, Overlay } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import usePersist from "../../hooks/usePersist";
 import axios from "axios";
 import useCategory from "../../hooks/useCategory";
@@ -327,9 +328,8 @@ export default function AtualizarDadosLoja({ navigation, route }) {
                   <Text>Regra de pontos</Text>
                 </View>
                 <TouchableOpacity onPress={toggleOverlay}>
-                  <Icon
+                  <Ionicons
                     name="information-circle"
-                    type="ionicon"
                     size={24}
                     color={"#005098"}
                     style={{ marginLeft: "5%", elevation: 10 }}
@@ -337,23 +337,26 @@ export default function AtualizarDadosLoja({ navigation, route }) {
                 </TouchableOpacity>
               </View>
 
-              <Overlay
-                isVisible={visible}
-                overlayStyle={{ width: "90%" }}
-                onBackdropPress={toggleOverlay}
+              <Modal
+                visible={visible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={toggleOverlay}
               >
-                <View>
-                  <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                    Como funciona a regra de pontos?
-                  </Text>
-                  <Text>
-                    Você define aqui quantos pontos o seu cliente ganhará a cada
-                    real gasto, bem como, qual será o benefício e com quantos
-                    pontos ele ganhará. {"\n\n"}Exemplos: {"\n\n"}1 real = 1
-                    ponto {"\n"}1 real = 2 pontos {"\n"}E assim em diante.
-                  </Text>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                  <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '90%' }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                      Como funciona a regra de pontos?
+                    </Text>
+                    <Text>
+                      Você define aqui quantos pontos o seu cliente ganhará a cada
+                      real gasto, bem como, qual será o benefício e com quantos
+                      pontos ele ganhará. {"\n\n"}Exemplos: {"\n\n"}1 real = 1
+                      ponto {"\n"}1 real = 2 pontos {"\n"}E assim em diante.
+                    </Text>
+                  </View>
                 </View>
-              </Overlay>
+              </Modal>
 
               <SafeAreaView style={{ width: "90%" }}>
                 <Input

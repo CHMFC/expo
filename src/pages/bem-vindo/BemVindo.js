@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, StatusBar } from "react-native";
-import Onboarding from "react-native-onboarding-swiper";
+// import Onboarding from "react-native-onboarding-swiper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BemVindo({ route, navigation }) {
@@ -65,61 +65,44 @@ export default function BemVindo({ route, navigation }) {
   );
 
   return (
-    <Onboarding
-      SkipButtonComponent={Skip}
-      NextButtonComponent={Next}
-      DoneButtonComponent={Done}
-      DotComponent={Visualizacao}
-      bottomBarColor="#005098"
-      onSkip={() => {
-        setStorage();
-        navigation.replace("Home", { token: route.params.token });
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#005098",
+        paddingTop: StatusBar.currentHeight,
       }}
-      onDone={() => {
-        setStorage();
-        navigation.replace("Home", { token: route.params.token });
-      }}
-      pages={[
-        {
-          backgroundColor: "#005098",
-          image: (
-            <Image
-              style={{
-                width: "100%",
-                height: "100%",
-                marginTop: StatusBar.currentHeight,
-              }}
-              source={require("../../assets/apresentacao/tela1.png")}
-            />
-          ),
-        },
-        {
-          backgroundColor: "#005098",
-          image: (
-            <Image
-              style={{
-                width: "100%",
-                height: "100%",
-                marginTop: StatusBar.currentHeight,
-              }}
-              source={require("../../assets/apresentacao/tela2.png")}
-            />
-          ),
-        },
-        {
-          backgroundColor: "#005098",
-          image: (
-            <Image
-              style={{
-                width: "100%",
-                height: "100%",
-                marginTop: StatusBar.currentHeight,
-              }}
-              source={require("../../assets/apresentacao/tela3.png")}
-            />
-          ),
-        },
-      ]}
-    />
+    >
+      <Image
+        source={require("../../assets/apresentacao/tela1.png")}
+        style={{
+          width: "100%",
+          height: "100%",
+          marginTop: StatusBar.currentHeight,
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: 20,
+          right: 20,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Skip onPress={() => {
+          setStorage();
+          navigation.replace("Home", { token: route.params.token });
+        }} />
+        <Next onPress={() => {
+          setStorage();
+          navigation.replace("Home", { token: route.params.token });
+        }} />
+        <Done onPress={() => {
+          setStorage();
+          navigation.replace("Home", { token: route.params.token });
+        }} />
+      </View>
+    </View>
   );
 }

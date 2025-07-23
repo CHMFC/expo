@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, RefreshControl, ScrollView } from "react-native";
-import { Text } from "react-native-elements";
+import { View, RefreshControl, ScrollView, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../../components/header/Header";
 import useNotification from "../../hooks/useNotification";

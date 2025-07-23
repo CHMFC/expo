@@ -4,12 +4,13 @@ import { Dimensions, TouchableOpacity } from "react-native";
 import { Header } from "../../components/header/Header";
 import { Nav } from "../../components/nav/Nav";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Data } from "../../components/datas/Data";
 
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Icon } from "react-native-elements";
+// import { Image, Icon } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para imagens e ícones.
 
 import axios from "axios";
 
@@ -202,14 +203,14 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
               periodo={"início"}
               onPress={mostrarDataInicio}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFinal
                 .getDate()
@@ -221,7 +222,7 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -229,7 +230,7 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
             <View
               style={{
                 backgroundColor: "#1F5A9E",
@@ -252,12 +253,12 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                   setCompartilhar(true);
                 }}
               >
-                <Icon
+                {/* <Icon
                   name="share-social-outline"
                   color="white"
                   type="ionicon"
                   size={24}
-                />
+                /> */}
               </TouchableOpacity>
             </View>
           </View>
@@ -310,13 +311,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>
@@ -363,13 +364,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>
@@ -424,13 +425,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>
@@ -478,13 +479,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>
@@ -540,13 +541,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>
@@ -594,13 +595,13 @@ export function RelatorioFaixaEtaria({ navigation, route }) {
                       })
                     }
                   >
-                    <Image
+                    {/* <Image
                       source={require("../../assets/cards/mensagem.png")}
                       style={{
                         width: 28,
                         height: 28,
                       }}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 )}
               </View>

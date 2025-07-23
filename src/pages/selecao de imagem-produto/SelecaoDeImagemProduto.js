@@ -1,6 +1,6 @@
 import { SafeAreaView, View, ScrollView, Image } from "react-native";
 import { styles } from "./SelecaoDeImagemProdutoStyles";
-import { Text } from "react-native-elements";
+import { Text } from "react-native";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";

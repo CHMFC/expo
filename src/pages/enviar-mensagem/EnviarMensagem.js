@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, Alert } from "react-native";
 
 import { Header } from "../../components/header/Header";
 import { Nav } from "../../components/nav/Nav";
@@ -10,7 +10,8 @@ import axios from "axios";
 
 import { Controller, useForm } from "react-hook-form";
 
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
+// Substitua showMessage por Alert.alert("Título", "Mensagem");
 
 import usePersist from "../../hooks/usePersist";
 import { StatusBar } from 'react-native';
@@ -41,31 +42,17 @@ export function EnviarMensagem({ route, navigation }) {
             return null;
           })
           .finally(() => {
-            mostrarMensagem("Sucesso!", "Mensagem enviada!", "success");
+            Alert.alert("Sucesso!", "Mensagem enviada!", [{ text: "OK" }]);
           })
       })
       .catch((error) => {
-        mostrarMensagem("Falha!", "Falha ao enviar mensagem!", "danger");
+        Alert.alert("Falha!", "Falha ao enviar mensagem!", [{ text: "OK" }]);
         return null;
       });
   };
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-        textAlign: "center",
-        paddingTop: StatusBar.currentHeight
-      },
-    });
+    Alert.alert(title, mensagem, [{ text: "OK" }]);
   };
 
   const {
@@ -78,16 +65,6 @@ export function EnviarMensagem({ route, navigation }) {
     <SafeAreaView style={{ flex: 1, alignItems: "center", paddingTop: StatusBar.currentHeight }}>
       <Header icon={true} onPress={() => navigation.goBack()} />
 
-      <FlashMessage
-        textStyle={{
-          fontSize: 20,
-          justifyContent: "center",
-          alignSelf: "center",
-          marginTop: "auto",
-          textAlign: "center",
-        }}
-        duration={2000}
-      />
       <View
         style={{
           width: "90%",

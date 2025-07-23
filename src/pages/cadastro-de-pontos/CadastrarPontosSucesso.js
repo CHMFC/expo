@@ -1,6 +1,6 @@
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Text } from "react-native";
 import Button from "../../components/button/Button";
-import { Icon, Text } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 
@@ -20,7 +20,7 @@ export default function CadastrarPontosSucesso({ navigation }) {
           bottom: 64,
         }}
       >
-        <Icon name="checkmark-circle-outline" type="ionicon" color="#005098" size={96} />
+        <Ionicons name="checkmark-circle-outline" size={96} color="#005098" />
         <Text
           style={{
             color: "#005098",

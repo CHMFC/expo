@@ -5,10 +5,9 @@ import {
   Image,
   Platform,
   Alert,
+  Text,
 } from "react-native";
 import { styles } from "./ConfirmacaoDeProdutoStyles";
-import { Text } from "react-native-elements";
-import FlashMessage, { showMessage } from "react-native-flash-message";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
@@ -36,12 +35,7 @@ export default function ConfirmacaoDeProduto({ route, navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const mostrarMensagem = (mensagem) => {
-    showMessage({
-      message: "Sucesso",
-      description: mensagem,
-      type: "success",
-    });
-    
+    Alert.alert("Sucesso", mensagem);
   };
 
   
@@ -107,7 +101,7 @@ export default function ConfirmacaoDeProduto({ route, navigation }) {
         onPress={() => navigation.goBack()}
       />
       <View>
-      <FlashMessage
+      <Alert
         textStyle={{
           fontSize: 16,
           textAlign: "center",

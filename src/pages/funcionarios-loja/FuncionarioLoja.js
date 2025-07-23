@@ -6,22 +6,22 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { styles } from "./FuncionarioLojaStyle";
-import { Text, Avatar, Switch } from "react-native-elements";
+// import { Text, Avatar, Switch } from "react-native-elements";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import { LojaInfo } from "../../components/lojaInfo/LojaInfo";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
 import { Overlay } from "@rneui/themed";
 import Button from "../../components/button/Button";
-import Icon from "react-native-vector-icons/Ionicons";
-import {
-  removerFuncionarioNotification,
-  FuncionarioNotification,
-} from "../../const/notifications";
-import useNotification from "../../hooks/useNotification";
+// import Icon from "react-native-vector-icons/Ionicons";
+// import {
+//   removerFuncionarioNotification,
+//   FuncionarioNotification,
+// } from "../../const/notifications";
+// import useNotification from "../../hooks/useNotification";
 import { API_URL } from "../../const/apiUrl";
 
 export default function FuncionarioLoja({ route, navigation }) {
@@ -33,20 +33,20 @@ export default function FuncionarioLoja({ route, navigation }) {
   const [selectedFuncionario, setSelectedFuncionario] = useState(null);
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%", top: -20 },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-        textAlign: "center",
-      },
-    });
+    // showMessage({
+    //   message: title,
+    //   description: mensagem,
+    //   type: type,
+    //   style: { height: "100%", top: -20 },
+    //   titleStyle: {
+    //     fontWeight: "bold",
+    //     fontSize: 20,
+    //     justifyContent: "center",
+    //     marginTop: "auto",
+    //     alignSelf: "center",
+    //     textAlign: "center",
+    //   },
+    // });
   };
 
   const toggleSwitch = async (funcionarioId) => {
@@ -80,11 +80,11 @@ export default function FuncionarioLoja({ route, navigation }) {
         "danger"
       );
     }
-    FuncionarioNotification(
-      updatedFuncionario.usuario.nome,
-      updatedFuncionario.usuario.tokenCelular,
-      updatedFuncionario.ativo
-    );
+    // FuncionarioNotification(
+    //   updatedFuncionario.usuario.nome,
+    //   updatedFuncionario.usuario.tokenCelular,
+    //   updatedFuncionario.ativo
+    // );
   };
 
   useEffect(() => {
@@ -126,10 +126,10 @@ export default function FuncionarioLoja({ route, navigation }) {
       );
       setList(list.filter((f) => f.usuario.id !== funcionarioId));
       setOverlayVisible(false);
-      removerFuncionarioNotification(
-        selectedFuncionario.usuario.nome,
-        selectedFuncionario.usuario.tokenCelular
-      );
+      // removerFuncionarioNotification(
+      //   selectedFuncionario.usuario.nome,
+      //   selectedFuncionario.usuario.tokenCelular
+      // );
     } catch (error) {
     }
   };
@@ -148,7 +148,7 @@ export default function FuncionarioLoja({ route, navigation }) {
           icon={true}
           onPress={() => navigation.goBack()}
         />
-        <FlashMessage
+        {/* <FlashMessage
           textStyle={{
             fontSize: 20,
             justifyContent: "center",
@@ -157,7 +157,7 @@ export default function FuncionarioLoja({ route, navigation }) {
             textAlign: "center",
           }}
           duration={2000}
-        />
+        /> */}
         {data?.map((loja) => (
           <View
             key={loja?.categoria?.id}

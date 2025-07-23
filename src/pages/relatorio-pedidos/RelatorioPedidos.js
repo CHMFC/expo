@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import usePersist from "../../hooks/usePersist";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo).
 import {
   Text,
   SafeAreaView,
@@ -139,14 +140,14 @@ export default function RelatorioPedidos({ navigation, route }) {
             periodo={"início"}
             onPress={mostrarDataInicio}
           />
-          <DateTimePickerModal
+          {/* <DateTimePickerModal
             isVisible={dataInicioVisivel}
             mode="date"
             date={dataInicio}
             onConfirm={confirmarDataInicio}
             onCancel={esconderDataInicio}
             maximumDate={dataFinal}
-          />
+          /> */}
 
           <Data
             data={`${dataFinal.getDate().toString().padStart(2, "0")}/${String(
@@ -155,7 +156,7 @@ export default function RelatorioPedidos({ navigation, route }) {
             periodo={"final"}
             onPress={mostrarDataFinal}
           />
-          <DateTimePickerModal
+          {/* <DateTimePickerModal
             isVisible={dataFinalVisivel}
             mode="date"
             date={dataFinal}
@@ -163,7 +164,7 @@ export default function RelatorioPedidos({ navigation, route }) {
             onCancel={esconderDataFinal}
             minimumDate={dataInicio}
             maximumDate={new Date()}
-          />
+          /> */}
         </View>
         <View style={{ paddingBottom: "16%" }}>
           {isLoading ? (

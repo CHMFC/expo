@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   ScrollView,
@@ -13,7 +13,8 @@ import {
 import { Text } from "@rneui/base";
 import * as ImagePicker from 'expo-image-picker';
 import { styles } from "./EditarProdutoStyle";
-import { CheckBox, Icon, Overlay, Switch } from "react-native-elements";
+// import { CheckBox, Icon, Overlay, Switch } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para checkboxes, ícones, overlays, switches e mensagens.
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
@@ -159,21 +160,21 @@ export default function CadastroDeProdutos({ route, navigation }) {
                 }
               )
               .then((res) => {
-                showMessage({
-                  message: "Sucesso",
-                  description: res?.data?.message,
-                  type: "success",
-                });
+                // showMessage({
+                //   message: "Sucesso",
+                //   description: res?.data?.message,
+                //   type: "success",
+                // });
                 setTimeout(() => {
                   navigation.navigate("ProdutosCadastrados", { id: lojaId });
                 }, 1500);
               })
               .catch(() => {
-                showMessage({
-                  message: "Erro",
-                  description: "Erro ao excluir produto!",
-                  type: "danger",
-                });
+                // showMessage({
+                //   message: "Erro",
+                //   description: "Erro ao excluir produto!",
+                //   type: "danger",
+                // });
               });
           };
           deletarProdutoRequest();
@@ -238,7 +239,7 @@ export default function CadastroDeProdutos({ route, navigation }) {
               backgroundColor: "white",
             }}
           >
-            <FlashMessage
+            {/* <FlashMessage
               textStyle={{
                 fontSize: 16,
                 textAlign: "center",
@@ -261,7 +262,7 @@ export default function CadastroDeProdutos({ route, navigation }) {
                 flexDirection: "column",
               }}
               duration={1500}
-            />
+            /> */}
             <Text style={styles.title}>Editar produto</Text>
             <Button
               label={"Excluir produto"}
@@ -285,25 +286,38 @@ export default function CadastroDeProdutos({ route, navigation }) {
                   Qual tipo de pontuação do produto?
                 </Text>
                 <View style={{ flexDirection: "row" }}>
-                  <CheckBox
-                    checked={selectedIndex === 0}
-                    title="Tickets"
+                  <TouchableOpacity
                     onPress={() => setSelectedIndex(0)}
-                    iconRight={true}
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    containerStyle={{
-                      backgroundColor: "transparent",
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingVertical: 10,
+                      paddingHorizontal: 15,
+                      borderRadius: 8,
+                      backgroundColor: selectedIndex === 0 ? "#005098" : "#DCDCDC",
+                      marginRight: 10,
                     }}
-                  />
-                  <CheckBox
-                    checked={selectedIndex === 1}
-                    title="Pontos"
+                  >
+                    <Text style={{ color: selectedIndex === 0 ? "#FFFFFF" : "#515151", fontSize: 16 }}>
+                      Tickets
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     onPress={() => setSelectedIndex(1)}
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    containerStyle={{ backgroundColor: "transparent" }}
-                  />
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingVertical: 10,
+                      paddingHorizontal: 15,
+                      borderRadius: 8,
+                      backgroundColor: selectedIndex === 1 ? "#005098" : "#DCDCDC",
+                      marginLeft: 10,
+                    }}
+                  >
+                    <Text style={{ color: selectedIndex === 1 ? "#FFFFFF" : "#515151", fontSize: 16 }}>
+                      Pontos
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
               {anyPointError && (
@@ -313,28 +327,40 @@ export default function CadastroDeProdutos({ route, navigation }) {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text style={{ color: "black" }}>Permitir recompensa?</Text>
                   <TouchableOpacity onPress={exibirInfoRecompensa}>
-                    <Icon
-                      name="information-circle"
-                      type="ionicon"
-                      size={16}
-                      color={"#005098"}
-                      style={{ marginLeft: "5%" }}
-                    />
+                    <Text
+                      style={{
+                        marginLeft: "5%",
+                        color: "#005098",
+                        fontSize: 16,
+                      }}
+                    >
+                      ?
+                    </Text>
                   </TouchableOpacity>
                 </View>
-                <Switch
-                  trackColor={{ false: "#DCDCDC", true: "#C9CFFF" }}
-                  thumbColor={isEnabledRecompensa ? "#005098" : "#FFFFFF"}
-                  onValueChange={() => {
-                    if (selectedIndex === 0) {
-                      toggleSwitchRecompensa();
-                    }
+                <TouchableOpacity
+                  onPress={toggleSwitchRecompensa}
+                  style={{
+                    width: 50,
+                    height: 30,
+                    borderRadius: 15,
+                    backgroundColor: isEnabledRecompensa ? "#005098" : "#DCDCDC",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                  value={selectedIndex === 0 ? isEnabledRecompensa : false}
-                />
+                >
+                  <View
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 12,
+                      backgroundColor: isEnabledRecompensa ? "#FFFFFF" : "#FFFFFF",
+                    }}
+                  />
+                </TouchableOpacity>
               </View>
 
-              <Overlay
+              {/* <Overlay
                 isVisible={infoRecompensa}
                 onBackdropPress={exibirInfoRecompensa}
                 overlayStyle={{ width: "90%" }}
@@ -377,7 +403,7 @@ export default function CadastroDeProdutos({ route, navigation }) {
                     produto.
                   </Text>
                 </View>
-              </Overlay>
+              </Overlay> */}
               {isEnabledRecompensa && (
                 <Input
                   title={"Recompensa"}
@@ -393,24 +419,40 @@ export default function CadastroDeProdutos({ route, navigation }) {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text style={{ color: "black" }}>Permitir resgate?</Text>
                   <TouchableOpacity onPress={exibirInfoResgate}>
-                    <Icon
-                      name="information-circle"
-                      type="ionicon"
-                      size={16}
-                      color={"#005098"}
-                      style={{ marginLeft: "5%" }}
-                    />
+                    <Text
+                      style={{
+                        marginLeft: "5%",
+                        color: "#005098",
+                        fontSize: 16,
+                      }}
+                    >
+                      ?
+                    </Text>
                   </TouchableOpacity>
                 </View>
-                <Switch
-                  trackColor={{ false: "#DCDCDC", true: "#C9CFFF" }}
-                  thumbColor={isEnabledResgate ? "#005098" : "#FFFFFF"}
-                  onValueChange={toggleSwitchResgate}
-                  value={isEnabledResgate}
-                />
+                <TouchableOpacity
+                  onPress={toggleSwitchResgate}
+                  style={{
+                    width: 50,
+                    height: 30,
+                    borderRadius: 15,
+                    backgroundColor: isEnabledResgate ? "#005098" : "#DCDCDC",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 12,
+                      backgroundColor: isEnabledResgate ? "#FFFFFF" : "#FFFFFF",
+                    }}
+                  />
+                </TouchableOpacity>
               </View>
 
-              <Overlay
+              {/* <Overlay
                 isVisible={infoResgate}
                 onBackdropPress={exibirInfoResgate}
                 overlayStyle={{ width: "90%" }}
@@ -453,7 +495,7 @@ export default function CadastroDeProdutos({ route, navigation }) {
                     produto.
                   </Text>
                 </View>
-              </Overlay>
+              </Overlay> */}
               {isEnabledResgate && (
                 <Input
                   title={"Resgate"}

@@ -12,14 +12,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Icon } from "react-native-elements";
+// import { Image, Icon } from "react-native-elements";
 
 import axios from "axios";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Data } from "../../components/datas/Data";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { Data } from "../../components/datas/Data";
 
-import { BarChart } from "react-native-gifted-charts";
+// import { BarChart } from "react-native-gifted-charts";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo) e Victory Native ou react-native-svg-charts para gráficos.
 
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';

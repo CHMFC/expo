@@ -4,9 +4,10 @@ import {
   ScrollView,
   RefreshControl,
   StatusBar,
+  Text,
 } from "react-native";
 import { styles } from "./OpcoesLojaStyles";
-import { Icon, Text } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import usePersist from "../../hooks/usePersist";
@@ -167,9 +168,9 @@ export default function OpcoesLoja({ route, navigation }) {
               paddingHorizontal: 15,
               flexDirection: "row"
             }}>
-              <Icon
-                name='exclamation-triangle'
-                type='font-awesome'
+              <Ionicons
+                name='warning'
+                size={24}
                 color='red' />
               <Text
                 style={{

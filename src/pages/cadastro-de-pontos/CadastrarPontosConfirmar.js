@@ -3,7 +3,7 @@ import { styles } from "./CadastrarPontosStyle";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
-import { Text } from "react-native-elements";
+import { Text } from "react-native";
 import Form from "../../components/form/Form";
 
 export default function CadastrarPontosConfirmar({ navigation }) {

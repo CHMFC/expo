@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, SafeAreaView, TextInput, StatusBar, KeyboardAvoidingView, Platform } from "react-native";
-import { Text, Overlay } from "@rneui/themed";
+import { View, SafeAreaView, TextInput, StatusBar, KeyboardAvoidingView, Platform, Image, Text, Alert } from "react-native";
+import { Overlay } from "@rneui/themed";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
-import { Avatar } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
+// Substitua showMessage por Alert.alert("Título", "Mensagem");
 import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useNotification from "../../hooks/useNotification";
@@ -80,24 +81,12 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
     }
   };
   const mostrarMensagem = (message, type, mensagem) => {
-    showMessage({
-      message: message,
-      description: mensagem,
-      type: type,
-      style: { height: "100%", top: 0 },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert(message, mensagem);
   };
 
   const adicionarPontos = async () => {
     if (cpf === user?.cpf || pontos <= 0) {
-      mostrarMensagem("Erro", "danger", "Operação inválida!");
+      mostrarMensagem("Erro", "Operação inválida!");
     } else {
       await axios
         .post(
@@ -115,7 +104,7 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
           }
         )
         .then((result) => {
-          mostrarMensagem("Sucesso", "success", "Pontuação adicionada!");
+          mostrarMensagem("Sucesso", "Pontuação adicionada!");
           setValor("");
           setCpf("");
           setUsuarios([]);
@@ -140,7 +129,7 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
         icon={true}
         onPress={() => navigation.goBack()}
       />
-        <FlashMessage
+        {/* <FlashMessage
           textStyle={{
             fontSize: 20,
             justifyContent: "center",
@@ -149,7 +138,7 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
             textAlign: "center",
           }}
           duration={1500}
-        />
+        /> */}
         <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -214,12 +203,20 @@ export default function CadastrarPontosManualmente({ navigation, route }) {
                   alignItems: "center",
                 }}
               >
-                <Avatar
-                  source={{ uri: usuario?.imagem }}
-                  rounded
-                  size="medium"
-                  containerStyle={{ marginHorizontal: 8 }}
-                />
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    overflow: "hidden",
+                    marginHorizontal: 8,
+                  }}
+                >
+                  <Image
+                    source={{ uri: usuario?.imagem }}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </View>
                 <View>
                   <Text
                     style={{ paddingLeft: 8, fontSize: 16, fontWeight: "700" }}

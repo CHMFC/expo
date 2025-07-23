@@ -31,6 +31,8 @@ export default function NotificationContextProvider({ children }) {
     setVariedade(null)
     setPreco(null)
 
+    // --- Código de push notification desativado para compatibilidade com Expo Go ---
+    /*
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       const messageObject = {
         text: remoteMessage.notification.body,
@@ -67,6 +69,7 @@ export default function NotificationContextProvider({ children }) {
     return () => {
       unsubscribe();
     };
+    */
   }, [allNotifications]);
 
   const toggleOverlay = () => {

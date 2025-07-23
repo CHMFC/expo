@@ -9,7 +9,8 @@ import {
   Platform,
 } from "react-native";
 import { styles } from "./ContaStyle";
-import { Text, Avatar, Icon, Overlay, Image } from "react-native-elements";
+// import { Text, Avatar, Icon, Overlay, Image } from "react-native-elements";
+// Sugestão: use componentes Expo-friendly para textos, ícones, overlays e imagens.
 import Nav from "../../components/nav/Nav";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect, useCallback } from "react";

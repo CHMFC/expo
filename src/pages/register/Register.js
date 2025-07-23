@@ -8,6 +8,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { styles } from "./registerStyle";
 import { useState } from "react";
@@ -15,13 +16,14 @@ import Form from "../../components/form/Form";
 import SocialLogin from "../../components/socialLogin/SocialLogin";
 import InputPassword from "../../components/inputPassword/InputPassword";
 import Button from "../../components/button/Button";
-import { Overlay } from "react-native-elements";
+// import { Overlay } from "react-native-elements";
 import Modal from "../../components/modal/Modal";
 import axios from "axios";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import usePersist from "../../hooks/usePersist";
-import { TextInputMask } from "react-native-masked-text";
-import DatePicker from "react-native-date-picker";
+// import { TextInputMask } from "react-native-masked-text";
+// import DatePicker from "react-native-date-picker";
+// Sugestão: use react-native-mask-text (compatível com Expo) e @react-native-community/datetimepicker para datas.
 import { API_URL } from "../../const/apiUrl";
 import Header from "../../components/header/Header";
 
@@ -70,19 +72,7 @@ export default function Register({ navigation }) {
   };
 
   const mostrarMensagem = (message, type, mensagem) => {
-    showMessage({
-      message: message,
-      description: mensagem,
-      type: type,
-      style: { height: "100%", top: 0 },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert(message, mensagem);
     setTimeout(() => {
       navigation.navigate("Login");
     }, 1700);
@@ -287,8 +277,7 @@ export default function Register({ navigation }) {
               CPF inválido!
             </Text>
           )}
-          <TextInputMask
-            type="cpf"
+          <TextInput
             value={cpf}
             onChange={(e) => setCpf(e.nativeEvent.text)}
             placeholderTextColor="#878383"
@@ -326,6 +315,7 @@ export default function Register({ navigation }) {
             </TouchableOpacity>
           </View>
 
+          {/*
           <DatePicker
             modal
             open={dataNascimentoVisivel}
@@ -341,6 +331,7 @@ export default function Register({ navigation }) {
             cancelText="Cancelar"
             theme="light"
           />
+          */}
 
           {senhaError && (
             <Text
@@ -412,11 +403,11 @@ export default function Register({ navigation }) {
           marginTop: "5%",
         }} onPress={toggleOverlay}>
           {modalVisible && (
-            <Overlay
-              overlayStyle={{ borderRadius: 20 }}
-              isVisible={modalVisible}
-              onBackdropPress={toggleOverlay}
-            >
+            // <Overlay
+            //   overlayStyle={{ borderRadius: 20 }}
+            //   isVisible={modalVisible}
+            //   onBackdropPress={toggleOverlay}
+            // >
               <Modal>
                 <Button
                   label={"Fechar"}
@@ -431,7 +422,7 @@ export default function Register({ navigation }) {
                   fontWeight={"bold"}
                 />
               </Modal>
-            </Overlay>
+            // </Overlay>
           )}
 
           <Text style={[styles.termText, { width: '68%' }]}>

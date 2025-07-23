@@ -7,14 +7,14 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+// import Icon from "react-native-vector-icons/Ionicons";
 import Header from "../../components/header/Header";
 import { styles } from "./recompensasSelectStyles";
 import Nav from "../../components/nav/Nav";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
 import { ProdutoCard } from "../../components/produtoCard/ProdutoCard";
-import { Text } from "react-native-elements";
+// import { Text } from "react-native-elements";
 import { API_URL } from "../../const/apiUrl";
 import ScreenContainer from "../../components/screenContainer/ScreenContainer";
 
@@ -95,12 +95,12 @@ export default function RecompensasSelect({ navigation }) {
             returnKeyType={"search"}
             onSubmitEditing={pesquisarRecompensa}
           />
-          <Icon
+          {/* <Icon
             name="search"
             color="#878383"
             size={24}
             onPress={pesquisarRecompensa}
-          />
+          /> */}
         </View>
         <View>
           {filter

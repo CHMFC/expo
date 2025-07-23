@@ -7,7 +7,8 @@ import Card from "../../components/card/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+// import FlashMessage, { showMessage } from "react-native-flash-message";
+// Sugestão: use componentes Expo-friendly para mensagens.
 import { ConfirmarPedidoCard } from "../../components/confirmarPedidoCard/ConfirmarPedidoCard";
 import useNotification from "../../hooks/useNotification";
 import { StatusBar } from "react-native";
@@ -128,20 +129,20 @@ export default function LojaResgate({ navigation, route }) {
   };
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-        textAlign: "center",
-      },
-    });
+    // showMessage({
+    //   message: title,
+    //   description: mensagem,
+    //   type: type,
+    //   style: { height: "100%" },
+    //   titleStyle: {
+    //     fontWeight: "bold",
+    //     fontSize: 20,
+    //     justifyContent: "center",
+    //     marginTop: "auto",
+    //     alignSelf: "center",
+    //     textAlign: "center",
+    //   },
+    // });
   };
 
   return (
@@ -152,7 +153,7 @@ export default function LojaResgate({ navigation, route }) {
         paddingTop: StatusBar.currentHeight,
       }}
     >
-      <FlashMessage
+      {/* <FlashMessage
         textStyle={{
           fontSize: 20,
           justifyContent: "center",
@@ -161,7 +162,7 @@ export default function LojaResgate({ navigation, route }) {
           textAlign: "center",
         }}
         duration={2000}
-      />
+      /> */}
       <View style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header icon={true} onPress={() => navigation.goBack()} />

@@ -12,7 +12,7 @@ import Input from "../../components/input/Input";
 import InputPassword from "../../components/inputPassword/InputPassword";
 import Form from "../../components/form/Form";
 import axios from "axios";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import { API_URL } from "../../const/apiUrl";
 import Header from "../../components/header/Header";
 import ScreenContainer from "../../components/screenContainer/ScreenContainer";
@@ -203,7 +203,7 @@ export default function Login({ navigation }) {
                                     marginLeft: 10,
                                     borderRadius: 30
                                 }}>
-                                    <Icon name="refresh-outline" size={32} type="ionicon" color={"#ffffff"} />
+                                    <Ionicons name="refresh-outline" size={32} color={"#ffffff"} />
                                 </View>
                             </TouchableOpacity>
                         </View>

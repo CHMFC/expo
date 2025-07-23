@@ -3,7 +3,7 @@ import { ScrollView, View, SafeAreaView, TouchableOpacity, Dimensions } from "re
 import { Text } from "react-native-elements";
 import { loremIpsum } from "../../const/loremIpsum";
 import { styles } from "./modalStyle";
-import Pdf from 'react-native-pdf';
+import { WebView } from 'react-native-webview';
 
 export default function ModalComponent({ children }) {
   const source = { uri: 'https://storage.googleapis.com/fidelizepe/Teste PDF/documentoComprovacao/1690245947977_SCOTTCLUB-POLÃTICA&TERMOSJUL2023V4.pdf', cache: true };
@@ -23,24 +23,10 @@ export default function ModalComponent({ children }) {
           </View>
         ))} */}
 
-        <Pdf
-          trustAllCerts={false}
-          source={source}
-          onLoadComplete={(numberOfPages, filePath) => {
-          }}
-          onPageChanged={(page, numberOfPages) => {
-          }}
-          onError={(error) => {
-          }}
-          onPressLink={(uri) => {
-          }}
-          style={{
-            flex: 1,
-            width: 400,
-            height: 540,
-            marginLeft: -23,
-            marginTop: -16
-          }} />
+        <WebView
+          source={{ uri: 'https://storage.googleapis.com/fidelizepe/Teste%20PDF/documentoComprovacao/1690245947977_SCOTTCLUB-POL%C3%8DTICA&TERMOSJUL2023V4.pdf' }}
+          style={{ flex: 1, width: 400, height: 540, marginLeft: -23, marginTop: -16 }}
+        />
       </ScrollView>
       {children}
     </SafeAreaView>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
+import { ScrollView, View, SafeAreaView, KeyboardAvoidingView, Platform, Text, Alert } from "react-native";
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
 import { styles } from "./cadastroDeLojaEnderecoStyle";
@@ -7,9 +7,7 @@ import Input from "../../components/input/Input";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import axios from "axios";
-import { Text } from "react-native-elements";
 import { StatusBar } from "react-native";
-import FlashMessage, { showMessage } from "react-native-flash-message";
 
 export default function CadastroDeLojaEndereco({ navigation, route }) {
   const infoLoja = route.params;
@@ -24,20 +22,7 @@ export default function CadastroDeLojaEndereco({ navigation, route }) {
   const [error, setError] = useState(false);
 
   const mostrarMensagem = (title, mensagem, type) => {
-    showMessage({
-      message: title,
-      description: mensagem,
-      type: type,
-      style: { height: "100%" },
-      titleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        lineHeight: 20,
-        justifyContent: "center",
-        marginTop: "auto",
-        alignSelf: "center",
-      },
-    });
+    Alert.alert(title, mensagem, [{ text: "OK" }]);
   };
 
   const autoFillAdressInfo = async () => {

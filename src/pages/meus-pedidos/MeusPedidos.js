@@ -14,7 +14,7 @@ import usePersist from "../../hooks/usePersist";
 import { PedidoCard } from "../../components/pedidoCard/PedidoCard";
 import { Skelleton } from "../../components/skelleton/Skelleton";
 import { SkelletonItens } from "../../const/skelletonItens";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 // Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo).

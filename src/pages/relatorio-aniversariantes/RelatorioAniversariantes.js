@@ -12,9 +12,10 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Image,
 } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Overlay, Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 
 import { Controller, useForm } from "react-hook-form";
 // import { Picker } from "@react-native-picker/picker";
@@ -194,10 +195,9 @@ export function RelatorioAniversariantes({ navigation, route }) {
                   setCompartilhar(true);
                 }}
               >
-                <Icon
+                <Ionicons
                   name="share-social-outline"
                   color="white"
-                  type="ionicon"
                   size={24}
                 />
               </TouchableOpacity>

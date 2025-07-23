@@ -10,13 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import usePersist from "../../hooks/usePersist";
-import { Image, Overlay, Avatar } from "react-native-elements";
-
-import { Controller, useForm } from "react-hook-form";
+// import { Image, Overlay, Avatar } from "react-native-elements";
 // import { Picker } from "@react-native-picker/picker";
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 // import { PieChart } from "react-native-gifted-charts";
 // import { captureScreen } from "react-native-view-shot";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo), Victory Native ou react-native-svg-charts para gráficos, expo-screen-capture para captura de tela e um Picker customizado ou de alguma lib Expo-friendly.
 import axios from "axios";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
@@ -48,15 +47,15 @@ export function RelatorioAniversariantesShare({ navigation, route }) {
 
   const { tokenStored } = usePersist();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
+  // const toggleOverlay = () => {
+  //   setVisible(!visible);
+  // };
 
   useEffect(() => {
     async function pegarClientes() {
@@ -134,12 +133,12 @@ export function RelatorioAniversariantesShare({ navigation, route }) {
             borderBottomWidth: 1,
           }}
         >
-          <Avatar
+          {/* <Avatar
             rounded
             size={64}
             source={{ uri: lojaImagem }}
             containerStyle={{ backgroundColor: "gray", marginRight: 16 }}
-          />
+          /> */}
           <Text
             style={{
               width: "77%",

@@ -1,6 +1,6 @@
 import { SafeAreaView, TouchableOpacity, View, ScrollView } from "react-native";
 import { styles } from "./UsuarioSemLojaStyles";
-import { Text } from "react-native-elements";
+import { Text } from "react-native";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import Button from "../../components/button/Button";

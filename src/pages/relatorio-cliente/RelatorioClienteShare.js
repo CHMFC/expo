@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, SafeAreaView, Text, ScrollView } from "react-native";
+import { View, SafeAreaView, Text, ScrollView, Image } from "react-native";
 import { Header } from "../../components/header/Header";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
-import { Avatar } from "react-native-elements";
-import { PieChart } from "react-native-gifted-charts";
+// import { Avatar } from "react-native-elements";
+// import { PieChart } from "react-native-gifted-charts";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Data } from "../../components/datas/Data";
 
-import { captureScreen } from "react-native-view-shot";
+// import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -94,24 +94,24 @@ export function RelatorioClienteShare({ navigation, route }) {
           );
 
           setTimeout(() => {
-            captureScreen({
-              format: "jpg",
-              quality: 1,
-              filename: "relatorio-de-clientes",
-              filenames: ["relatorio-de-clientes"],
-            }).then(
-              (uri) => {
-                navigation.navigate("RelatorioCliente", {
-                  lojaId: lojaId,
-                  printUrl: uri,
-                  lojaNome: lojaNome,
-                  lojaImagem: lojaImagem,
-                });
-              },
-              (error) => {
-                return null;
-              }
-            );
+            // captureScreen({
+            //   format: "jpg",
+            //   quality: 1,
+            //   filename: "relatorio-de-clientes",
+            //   filenames: ["relatorio-de-clientes"],
+            // }).then(
+            //   (uri) => {
+            //     navigation.navigate("RelatorioCliente", {
+            //       lojaId: lojaId,
+            //       printUrl: uri,
+            //       lojaNome: lojaNome,
+            //       lojaImagem: lojaImagem,
+            //     });
+            //   },
+            //   (error) => {
+            //     return null;
+            //   }
+            // );
           }, 500);
         });
     }
@@ -149,25 +149,41 @@ export function RelatorioClienteShare({ navigation, route }) {
             borderBottomWidth: 1,
           }}
         >
-          <Avatar
+          {/* <Avatar
             rounded
             size={64}
             source={{ uri: lojaImagem }}
             containerStyle={{ backgroundColor: "gray", marginRight: 16 }}
-          />
-          <Text
+          /> */}
+          <View
             style={{
-              width: "77%",
-              fontSize: 18,
-              color: "black",
-              fontWeight: "bold",
-              flexWrap: "wrap",
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            numberOfLines={2}
-            ellipsizeMode="tail"
           >
-            {lojaNome}
-          </Text>
+            <Image
+              source={{ uri: lojaImagem }}
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 32,
+                marginRight: 16,
+              }}
+            />
+            <Text
+              style={{
+                width: "77%",
+                fontSize: 18,
+                color: "black",
+                fontWeight: "bold",
+                flexWrap: "wrap",
+              }}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {lojaNome}
+            </Text>
+          </View>
         </View>
 
         <Text
@@ -206,14 +222,14 @@ export function RelatorioClienteShare({ navigation, route }) {
               onPress={mostrarDataInicio}
             />
 
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFim.substring(8, 10)}/${dataFim.substring(
                 5,
@@ -222,7 +238,7 @@ export function RelatorioClienteShare({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -230,7 +246,7 @@ export function RelatorioClienteShare({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
           </View>
           <View
             style={{
@@ -352,7 +368,7 @@ export function RelatorioClienteShare({ navigation, route }) {
               paddingLeft: 20,
             }}
           >
-            <PieChart
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagemAtivos
@@ -408,8 +424,8 @@ export function RelatorioClienteShare({ navigation, route }) {
                   </View>
                 );
               }}
-            />
-            <PieChart
+            /> */}
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes?.porcentagemInativos
@@ -465,7 +481,7 @@ export function RelatorioClienteShare({ navigation, route }) {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>
