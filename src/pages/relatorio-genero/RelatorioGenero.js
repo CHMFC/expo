@@ -21,7 +21,8 @@ import { Data } from "../../components/datas/Data";
 
 import { BarChart } from "react-native-gifted-charts";
 
-import Share from "react-native-share";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -32,18 +33,20 @@ export function RelatorioGenero({ navigation, route }) {
   if (printUrl && compartilhar) {
     setCompartilhar(false);
 
-    Share.open({
-      title: "Compartilhar via",
-      message: "Relatório de Gênero",
-      url: printUrl,
-      filename: "relatorio-de-genero",
-      filenames: ["relatorio-de-genero"],
-    })
-      .then((res) => {
-      })
-      .catch((err) => {
-        if (err && `${err}` != "Error: User did not share") return null;
-      });
+    (async () => {
+      try {
+        // Baixa o arquivo para o cache local
+        const fileUri = FileSystem.cacheDirectory + "relatorio-de-genero.pdf"; // ajuste a extensão conforme o tipo do arquivo
+        await FileSystem.downloadAsync(printUrl, fileUri);
+
+        // Compartilha o arquivo baixado
+        await Sharing.shareAsync(fileUri, {
+          dialogTitle: "Compartilhar via"
+        });
+      } catch (err) {
+        // Trate o erro se necessário
+      }
+    })();
   }
 
   const [dataFinalVisivel, setDataFinalVisivel] = useState(false);

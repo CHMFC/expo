@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useMemo, useState, createContext, useEffect } from "react";
-import messaging from "@react-native-firebase/messaging";
 
 export const StorageContext = createContext({
   userStored: {},

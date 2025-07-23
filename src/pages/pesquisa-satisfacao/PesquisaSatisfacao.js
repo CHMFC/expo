@@ -8,7 +8,6 @@ import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
-import("react-native-image-picker");
 import usePersist from "../../hooks/usePersist";
 import axios from "axios";
 import { API_URL } from "../../const/apiUrl";

@@ -11,13 +11,14 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { styles } from "./cadastroDeLojaSemLojaStyle";
-import { Picker } from "@react-native-picker/picker";
+// import { Picker } from "@react-native-picker/picker";
+// Sugestão: use um Picker customizado ou de alguma lib Expo-friendly, como react-native-paper DropdownMenu.
 import Form from "../../components/form/Form";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 import { CheckBox, Overlay } from "@rneui/themed";
 import { useForm, Controller } from "react-hook-form";
 
@@ -96,8 +97,12 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
       mediaType: "photo",
       quality: 0.5,
     };
-    const result = await launchImageLibrary(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
       setInseridoImagem("Inserido");
       setimagemError(false);
@@ -138,8 +143,12 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
       mediaType: "photo",
       quality: 0.5,
     };
-    const result = await launchImageLibrary(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setComprovante(result.assets[0]);
       setInseridoComprovante("Inserido");
       setComprovanteError(false);
@@ -157,11 +166,14 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
     const options = {
       mediaType: "photo",
       quality: 0.5,
-      saveToPhotos: false,
-      cameraType: "back",
+      allowsEditing: true,
     };
-    const result = await launchCamera(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setComprovante(result.assets[0]);
       setInseridoComprovante("Inserido");
       setComprovanteError(false);
@@ -534,7 +546,7 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
               <Text style={{ color: "red" }}>*</Text>
             </View>
             <View style={[styles.picker, { marginBottom: 24 }]}>
-              <Picker
+              {/* <Picker
                 style={{ color: "#005098", width: "100%" }}
                 selectedValue={categoria}
                 onValueChange={(itemValue) => {
@@ -554,7 +566,7 @@ export default function CadastroDeLojaSemLoja({ navigation }) {
                     value={data?.id}
                   />
                 ))}
-              </Picker>
+              </Picker> */}
             </View>
             {errors.expiracaoPontos && (
               <Text

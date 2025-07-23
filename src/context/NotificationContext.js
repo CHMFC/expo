@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState, useMemo } from "react";
 export const NotificationContext = createContext({});
-import messaging from "@react-native-firebase/messaging";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "../const/apiUrl";
 
@@ -8,7 +7,6 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { Overlay, Avatar, CheckBox, Icon } from "react-native-elements";
 import Form from "../components/form/Form";
 import Button from "../components/button/Button";
-import("react-native-image-picker");
 import axios from "axios";
 
 export default function NotificationContextProvider({ children }) {

@@ -15,8 +15,9 @@ import { styles } from "./atualizarDadosLojaStyles";
 import Input from "../../components/input/Input";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
-import { Picker } from "@react-native-picker/picker";
-import { launchImageLibrary } from "react-native-image-picker";
+// import { Picker } from "@react-native-picker/picker";
+// Sugestão: use um Picker customizado ou de alguma lib Expo-friendly, como react-native-paper DropdownMenu.
+import * as ImagePicker from 'expo-image-picker';
 import { Icon, Overlay } from "react-native-elements";
 import usePersist from "../../hooks/usePersist";
 import axios from "axios";
@@ -83,12 +84,12 @@ export default function AtualizarDadosLoja({ navigation, route }) {
   }, [infoLoja]);
 
   const inserirImagemDaLoja = async () => {
-    const options = {
-      mediaType: "photo",
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 0.5,
-    };
-    const result = await launchImageLibrary(options);
-    if (result?.assets) {
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
       setInseridoImagem("Inserido");
     }
@@ -244,7 +245,7 @@ export default function AtualizarDadosLoja({ navigation, route }) {
               marginBottom: 16,
               overflow: 'hidden'
             }}>
-              <Picker
+              {/* <Picker
                 style={{ 
                   color: "#005098", 
                   width: "100%",
@@ -260,7 +261,7 @@ export default function AtualizarDadosLoja({ navigation, route }) {
                     key={data?.id}
                   />
                 ))}
-              </Picker>
+              </Picker> */}
             </View>
 
             <Input

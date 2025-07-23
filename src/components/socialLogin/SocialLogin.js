@@ -1,15 +1,15 @@
 import { Text, TouchableOpacity, View, SafeAreaView,Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { styles } from "./socialLoginStyle";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { LoginManager, AccessToken } from "react-native-fbsdk-next";
 import { memo, useEffect } from "react";
-import auth from "@react-native-firebase/auth";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import usePersist from "../../hooks/usePersist";
 import { API_URL } from "../../const/apiUrl";
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SocialLoginComponent({ label }) {
   const navigation = useNavigation();
@@ -33,68 +33,23 @@ export default function SocialLoginComponent({ label }) {
     });
   };
 
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: 'SEU_CLIENT_ID_EXPO_APPS.apps.googleusercontent.com',
+    iosClientId: 'SEU_CLIENT_ID_IOS.apps.googleusercontent.com',
+    androidClientId: 'SEU_CLIENT_ID_ANDROID.apps.googleusercontent.com',
+    webClientId: 'SEU_CLIENT_ID_WEB.apps.googleusercontent.com',
+  });
+
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:"698611291998-6c9bsgsmiluinjveif5v6ke1b8p81l5o.apps.googleusercontent.com",
-      iosClientId: '698611291998-6c9bsgsmiluinjveif5v6ke1b8p81l5o.apps.googleusercontent.com', // client_id do tipo iOS
-      scopes: ['profile', 'email'],
-        
-    });
-  }, []);
-
-  // async function loginGoogle() {
-  //   // Check if your device supports Google Play
-  //   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-  //   // Get the users ID token
-  //   const { idToken } = await GoogleSignin.signIn();
-
-  //   // Create a Google credential with the token
-  //   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-  //   // Sign-in the user with the credential
-  //   return auth().signInWithCredential(googleCredential);
-  // }
-
-  async function loginGoogle() {
-    try {
-      await GoogleSignin.hasPlayServices(); // não faz nada no iOS mas é seguro
-      const userInfo = await GoogleSignin.signIn();
-      
-      return userInfo;
-    } catch (error) {
-      return null;
+    WebBrowser.maybeCompleteAuthSession();
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      // Aqui você pode usar o token para autenticar no seu backend ou Firebase
+      // Exemplo: enviar o token para sua API, buscar dados do usuário, etc.
+      // authentication.accessToken
     }
-  };
+  }, [response]);
 
-
-
-  
-  async function loginFacebook() {
-    // Attempt login with permissions
-    const result = await LoginManager.logInWithPermissions([
-      "public_profile",
-      "email",
-    ]);
-
-    if (result.isCancelled) {
-      throw "Usuário cancelou o processo de login";
-    }
-
-    // Once signed in, get the users AccesToken
-    const data = await AccessToken.getCurrentAccessToken();
-
-    if (!data) {
-      throw "Alguma coisa deu errado ao obter o token de acesso";
-    }
-
-    // Create a Firebase credential with the AccessToken
-    const facebookCredential = auth.FacebookAuthProvider.credential(
-      data.accessToken
-    );
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(facebookCredential);
-  }
   return (
     <SafeAreaView style={styles.socialLoginContainer}>
       <Text style={styles.socialText}>{label}</Text>
@@ -102,139 +57,9 @@ export default function SocialLoginComponent({ label }) {
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.socialContainer}
-          // chama a função de login com o google
-          onPress={() =>
-            loginGoogle()
-              .then(async (res) => {
-                const user = res.data.user;
-                
-                await axios
-                  .post(`${API_URL.base}/login`, {
-                    nome: user.name,
-                    email: user.email,
-                    senha: "",
-                    imagem: user.photo,
-                    tipoCadastro: "GOOGLE",
-                    uid_social: user.givenName,
-                  })
-                  .then(async (res) => {
-                    const userData = {
-                      token: res.data.token,
-                      user: res.data.usuarioId,
-                    };
-                    await AsyncStorage.setItem(
-                      "token",
-                      JSON.stringify(userData.token)
-                    );
-                    setTokenStored(userData.token);
-                    pegarUsuario(userData);
-                    
-                    // Check AsyncStorage for onboarding status - replaced the old if condition
-                    const checkOnboardingStatus = async () => {
-                      try {
-                        const onboardingCompleted = await AsyncStorage.getItem("bemVindo");
-                        if (onboardingCompleted === "true") {
-                          return navigation.navigate("Home", {
-                            token: userData.token,
-                          });
-                        } else {
-                          await axios
-                            .get(`${API_URL.base}/mensagensapresentacao`)
-                            .then((res) => {
-                              return navigation.navigate("BemVindo", {
-                                token: userData.token,
-                                bemVindo: res.data,
-                              });
-                            })
-                            .catch((error) => {
-                              navigation.navigate("Home", { token: userData.token });
-                            });
-                        }
-                      } catch (error) {
-                        navigation.navigate("Home", { token: userData.token });
-                      }
-                    };
-
-                    checkOnboardingStatus();
-                  })
-                  .catch((err) => {
-                    return null;
-                  });
-              })
-              .catch((erro) => {
-                return null;
-              })
-          }
+          onPress={() => promptAsync()}
         >
           <Icon name="logo-google" color="black" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.socialContainer}
-          onPress={() =>
-            loginFacebook()
-              .then(async (res) => {
-                const user = res.user;
-
-                await axios
-                  .post(`${API_URL.base}/login`, {
-                    nome: user.displayName,
-                    email: user.email,
-                    senha: "",
-                    imagem: user.photoURL,
-                    tipoCadastro: "FACEBOOK",
-                    uid_social: user.providerId,
-                  })
-                  .then(async (res) => {
-                    const userData = {
-                      token: res.data.token,
-                      user: res.data.usuarioId,
-                    };
-                    await AsyncStorage.setItem(
-                      "token",
-                      JSON.stringify(userData.token)
-                    );
-                    setTokenStored(userData.token);
-                    pegarUsuario(userData);
-                    
-                    // Check AsyncStorage for onboarding status - replaced the old if condition
-                    const checkOnboardingStatus = async () => {
-                      try {
-                        const onboardingCompleted = await AsyncStorage.getItem("bemVindo");
-                        if (onboardingCompleted === "true") {
-                          return navigation.navigate("Home", {
-                            token: userData.token,
-                          });
-                        } else {
-                          await axios
-                            .get(`${API_URL.base}/mensagensapresentacao`)
-                            .then((res) => {
-                              return navigation.navigate("BemVindo", {
-                                token: userData.token,
-                                bemVindo: res.data,
-                              });
-                            })
-                            .catch((error) => {
-                              // If API fails, still navigate to Home as fallback
-                              navigation.navigate("Home", { token: userData.token });
-                            });
-                        }
-                        } catch (error) {
-                        navigation.navigate("Home", { token: userData.token });
-                      }
-                    };
-
-                    checkOnboardingStatus();
-                  })
-                  .catch((err) => {
-                  });
-              })
-              .catch((erro) => {
-                return null;
-              })
-          }
-        >
-          <Icon name="logo-facebook" color="black" size={24} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

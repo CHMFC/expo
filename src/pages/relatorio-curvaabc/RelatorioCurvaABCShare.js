@@ -9,12 +9,12 @@ import { Avatar } from "react-native-elements";
 
 import axios from "axios";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Data } from "../../components/datas/Data";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { Data } from "../../components/datas/Data";
 
-import { BarChart } from "react-native-gifted-charts";
+// import { BarChart } from "react-native-gifted-charts";
 
-import { captureScreen } from "react-native-view-shot";
+// import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -92,12 +92,12 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
           }
 
           setTimeout(() => {
-            captureScreen({
-              format: "jpg",
-              quality: 1,
-              filename: "relatorio-de-curva-abc",
-              filenames: ["relatorio-de-curva-abc"],
-            }).then(
+            // captureScreen({
+            //   format: "jpg",
+            //   quality: 1,
+            //   filename: "relatorio-de-curva-abc",
+            //   filenames: ["relatorio-de-curva-abc"],
+            // }).then(
               (uri) => {
                 navigation.navigate("RelatorioCurvaABC", {
                   lojaId: lojaId,
@@ -146,12 +146,12 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
   const confirmarDataInicio = (date) => {
     setDataInicio(date);
     esconderDataInicio();
-    setIsLoading(true);
+    // setIsLoading(true);
   };
 
   const confirmarDataFinal = (date) => {
     setDataFinal(date);
-    setIsLoading(true);
+    // setIsLoading(true);
     esconderDataFinal();
   };
 
@@ -223,31 +223,31 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
           }}
         >
           <View style={{ flexDirection: "row", marginHorizontal: 12 }}>
-            <Data
+            {/* <Data
               data={`${dataComeco.substring(8, 13)}/${dataComeco.substring(
                 5,
                 7
               )}/${dataComeco.substring(0, 4)}`}
               periodo={"início"}
               onPress={mostrarDataInicio}
-            />
-            <DateTimePickerModal
+            /> */}
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
-            <Data
+            /> */}
+            {/* <Data
               data={`${dataFim.substring(8, 13)}/${dataFim.substring(
                 5,
                 7
               )}/${dataFim.substring(0, 4)}`}
               periodo={"final"}
               onPress={mostrarDataFinal}
-            />
-            <DateTimePickerModal
+            /> */}
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -255,7 +255,7 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
           </View>
           <View
             style={{
@@ -402,7 +402,7 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
                   marginTop: width <= 400 ? -65 : -90,
                 }}
               >
-                <BarChart
+                {/* <BarChart
                   horizontal
                   barWidth={24}
                   height={width <= 400 ? 354 : width * 0.9}
@@ -460,7 +460,7 @@ export function RelatorioCurvaABCShare({ navigation, route }) {
                       ],
                     },
                   ]}
-                />
+                /> */}
               </View>
             </View>
 

@@ -21,13 +21,11 @@ import axios from "axios";
 import usePersist from "../../hooks/usePersist";
 import Button from "../../components/button/Button";
 import FlashMessage, { showMessage } from "react-native-flash-message";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import { Picker } from "@react-native-picker/picker";
-import("react-native-image-picker");
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { API_URL } from "../../const/apiUrl";
 import ScreenContainer from "../../components/screenContainer/ScreenContainer";
 import { Icon } from "react-native-elements";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function ContaUsuario({ navigation }) {
   const { tokenStored } = usePersist();
@@ -121,8 +119,12 @@ export default function ContaUsuario({ navigation }) {
       mediaType: "photo",
       quality: 0.5,
     };
-    const result = await launchImageLibrary(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
       return;
     }
@@ -141,8 +143,12 @@ export default function ContaUsuario({ navigation }) {
       saveToPhotos: false,
       cameraType: "back",
     };
-    const result = await launchCamera(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
     } else {
       Alert.alert(

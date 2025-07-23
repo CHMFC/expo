@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View, PermissionsAndroid } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import * as Location from 'expo-location';
 import Header from "../../components/header/Header";
 import { CategoriesInfo } from "../../components/categoriesInfo/CategoriesInfo";
 import useShop from "../../hooks/useShop";
-import Geolocation from "@react-native-community/geolocation";
+// import MapView, { Marker } from "react-native-maps";
+// import Geolocation from "@react-native-community/geolocation";
 import useCategory from "../../hooks/useCategory";
 import { StatusBar } from "react-native";
 
@@ -54,17 +55,17 @@ export default function TelaMapa({ navigation }) {
       const result = requestLocationPermission();
       result.then((res) => {
         if (res) {
-          Geolocation.getCurrentPosition(
-            (position) => {
-              setLocation(position);
-              setLatitude(position?.coords?.latitude);
-              setLongitude(position?.coords?.longitude);
-            },
-            (error) => {
-              setLocation(false);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-          );
+          // Geolocation.getCurrentPosition(
+          //   (position) => {
+          //     setLocation(position);
+          //     setLatitude(position?.coords?.latitude);
+          //     setLongitude(position?.coords?.longitude);
+          //   },
+          //   (error) => {
+          //     setLocation(false);
+          //   },
+          //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+          // );
         }
       });
     };
@@ -88,52 +89,35 @@ export default function TelaMapa({ navigation }) {
         onPress={() => navigation.goBack()}
       />
       {location && (
-        <MapView
+        <View
           style={{
             flex: 1,
           }}
-          loadingEnabled={true}
-          region={{
-            latitude: latitude,
-            longitude: longitude,
-
-            latitudeDelta: 0.2,
-            longitudeDelta: 0.2,
-          }}
         >
-          <Marker
-            coordinate={{
+          {/* <MapView
+            style={{
+              flex: 1,
+            }}
+            loadingEnabled={true}
+            region={{
               latitude: latitude,
               longitude: longitude,
+
+              latitudeDelta: 0.2,
+              longitudeDelta: 0.2,
             }}
-            title={"Você"}
-            pinColor={"#005098"}
-          />
+          >
+            <Marker
+              coordinate={{
+                latitude: latitude,
+                longitude: longitude,
+              }}
+              title={"Você"}
+              pinColor={"#005098"}
+            />
 
-          {mapFilter &&
-            mapFilter.map((loja) => (
-              <Marker
-                key={loja?.id}
-                coordinate={{
-                  latitude: parseFloat(loja?.endereco?.latitude),
-                  longitude: parseFloat(loja?.endereco?.longitude),
-                }}
-                title={loja?.nomeFantasia}
-              />
-            ))}
-
-          {isFiltered.length > 0
-            ? isFiltered.map((loja) => (
-                <Marker
-                  key={loja?.id}
-                  coordinate={{
-                    latitude: parseFloat(loja?.endereco?.latitude),
-                    longitude: parseFloat(loja?.endereco?.longitude),
-                  }}
-                  title={loja?.nomeFantasia}
-                />
-              ))
-            : totalData.map((loja) => (
+            {mapFilter &&
+              mapFilter.map((loja) => (
                 <Marker
                   key={loja?.id}
                   coordinate={{
@@ -143,47 +127,53 @@ export default function TelaMapa({ navigation }) {
                   title={loja?.nomeFantasia}
                 />
               ))}
-        </MapView>
+
+            {isFiltered.length > 0
+              ? isFiltered.map((loja) => (
+                  <Marker
+                    key={loja?.id}
+                    coordinate={{
+                      latitude: parseFloat(loja?.endereco?.latitude),
+                      longitude: parseFloat(loja?.endereco?.longitude),
+                    }}
+                    title={loja?.nomeFantasia}
+                  />
+                ))
+              : totalData.map((loja) => (
+                  <Marker
+                    key={loja?.id}
+                    coordinate={{
+                      latitude: parseFloat(loja?.endereco?.latitude),
+                      longitude: parseFloat(loja?.endereco?.longitude),
+                    }}
+                    title={loja?.nomeFantasia}
+                  />
+                ))}
+          </MapView> */}
+        </View>
       )}
 
       {!location && (
-        <MapView
+        <View
           style={{
             flex: 1,
           }}
-          loadingEnabled={true}
-          region={{
-            latitude: -8.0563835,
-            longitude: -34.8854503,
-
-            latitudeDelta: 0.2,
-            longitudeDelta: 0.2,
-          }}
         >
-          {mapFilter &&
-            mapFilter.map((loja) => (
-              <Marker
-                key={loja?.id}
-                coordinate={{
-                  latitude: parseFloat(loja?.endereco?.latitude),
-                  longitude: parseFloat(loja?.endereco?.longitude),
-                }}
-                title={loja?.nomeFantasia}
-              />
-            ))}
+          {/* <MapView
+            style={{
+              flex: 1,
+            }}
+            loadingEnabled={true}
+            region={{
+              latitude: -8.0563835,
+              longitude: -34.8854503,
 
-          {isFiltered.length > 0
-            ? isFiltered.map((loja) => (
-                <Marker
-                  key={loja?.id}
-                  coordinate={{
-                    latitude: parseFloat(loja?.endereco?.latitude),
-                    longitude: parseFloat(loja?.endereco?.longitude),
-                  }}
-                  title={loja?.nomeFantasia}
-                />
-              ))
-            : totalData.map((loja) => (
+              latitudeDelta: 0.2,
+              longitudeDelta: 0.2,
+            }}
+          >
+            {mapFilter &&
+              mapFilter.map((loja) => (
                 <Marker
                   key={loja?.id}
                   coordinate={{
@@ -193,7 +183,30 @@ export default function TelaMapa({ navigation }) {
                   title={loja?.nomeFantasia}
                 />
               ))}
-        </MapView>
+
+            {isFiltered.length > 0
+              ? isFiltered.map((loja) => (
+                  <Marker
+                    key={loja?.id}
+                    coordinate={{
+                      latitude: parseFloat(loja?.endereco?.latitude),
+                      longitude: parseFloat(loja?.endereco?.longitude),
+                    }}
+                    title={loja?.nomeFantasia}
+                  />
+                ))
+              : totalData.map((loja) => (
+                  <Marker
+                    key={loja?.id}
+                    coordinate={{
+                      latitude: parseFloat(loja?.endereco?.latitude),
+                      longitude: parseFloat(loja?.endereco?.longitude),
+                    }}
+                    title={loja?.nomeFantasia}
+                  />
+                ))}
+          </MapView> */}
+        </View>
       )}
 
       <View style={{ paddingVertical: 10 }}>

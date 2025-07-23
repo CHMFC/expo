@@ -8,7 +8,8 @@ import usePersist from "../../hooks/usePersist";
 
 import axios from "axios";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo).
 import { Data } from "../../components/datas/Data";
 import { API_URL } from "../../const/apiUrl";
 
@@ -120,14 +121,14 @@ export function RelatorioLocalidade({ navigation, route }) {
               periodo={"início"}
               onPress={mostrarDataInicio}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataInicioVisivel}
               mode="date"
               date={dataInicio}
               onConfirm={confirmarDataInicio}
               onCancel={esconderDataInicio}
               maximumDate={dataFinal}
-            />
+            /> */}
             <Data
               data={`${dataFinal
                 .getDate()
@@ -139,7 +140,7 @@ export function RelatorioLocalidade({ navigation, route }) {
               periodo={"final"}
               onPress={mostrarDataFinal}
             />
-            <DateTimePickerModal
+            {/* <DateTimePickerModal
               isVisible={dataFinalVisivel}
               mode="date"
               date={dataFinal}
@@ -147,7 +148,7 @@ export function RelatorioLocalidade({ navigation, route }) {
               onCancel={esconderDataFinal}
               minimumDate={dataInicio}
               maximumDate={new Date()}
-            />
+            /> */}
           </View>
 
           <View style={{ width: "100%", marginTop: 20, paddingLeft: "5%" }}>

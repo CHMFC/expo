@@ -16,7 +16,8 @@ import { Skelleton } from "../../components/skelleton/Skelleton";
 import { SkelletonItens } from "../../const/skelletonItens";
 import { Icon } from "react-native-elements";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo).
 import { Data } from "../../components/datas/Data";
 import { API_URL } from "../../const/apiUrl";
 import ScreenContainer from "../../components/screenContainer/ScreenContainer";
@@ -125,14 +126,14 @@ export default function MeusPedidos({ navigation, route }) {
             onPress={mostrarDataInicio}
           />
 
-          <DateTimePickerModal
+          {/* <DateTimePickerModal
             isVisible={dataInicioVisivel}
             mode="date"
             date={dataInicio}
             onConfirm={confirmarDataInicio}
             onCancel={esconderDataInicio}
             maximumDate={dataFinal}
-          />
+          /> */}
           <Data
             data={`${dataFinal.getDate().toString().padStart(2, "0")}/${String(
               dataFinal.getMonth() + 1
@@ -140,7 +141,7 @@ export default function MeusPedidos({ navigation, route }) {
             periodo={"final"}
             onPress={mostrarDataFinal}
           />
-          <DateTimePickerModal
+          {/* <DateTimePickerModal
             isVisible={dataFinalVisivel}
             mode="date"
             date={dataFinal}
@@ -148,7 +149,7 @@ export default function MeusPedidos({ navigation, route }) {
             onCancel={esconderDataFinal}
             minimumDate={dataInicio}
             maximumDate={new Date()}
-          />
+          /> */}
         </View>
         {isLoading ? (
           <View

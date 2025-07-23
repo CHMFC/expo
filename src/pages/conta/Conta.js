@@ -12,7 +12,6 @@ import { styles } from "./ContaStyle";
 import { Text, Avatar, Icon, Overlay, Image } from "react-native-elements";
 import Nav from "../../components/nav/Nav";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import usePersist from "../../hooks/usePersist";
@@ -63,7 +62,6 @@ export default function Conta({ navigation }) {
   }, []);
 
   const logout = async () => {
-    await GoogleSignin.signOut();
     await AsyncStorage.getAllKeys()
       .then((keys) => {
         AsyncStorage.multiRemove(keys);

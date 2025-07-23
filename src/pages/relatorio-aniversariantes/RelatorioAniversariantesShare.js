@@ -13,11 +13,11 @@ import usePersist from "../../hooks/usePersist";
 import { Image, Overlay, Avatar } from "react-native-elements";
 
 import { Controller, useForm } from "react-hook-form";
-import { Picker } from "@react-native-picker/picker";
+// import { Picker } from "@react-native-picker/picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { PieChart } from "react-native-gifted-charts";
+// import { captureScreen } from "react-native-view-shot";
 import axios from "axios";
-import { PieChart } from "react-native-gifted-charts";
-
-import { captureScreen } from "react-native-view-shot";
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -31,9 +31,9 @@ const meses = {
   "07": "Julho",
   "08": "Agosto",
   "09": "Setembro",
-  10: "Outubro",
-  11: "Novembro",
-  12: "Dezembro",
+  "10": "Outubro",
+  "11": "Novembro",
+  "12": "Dezembro",
 };
 
 export function RelatorioAniversariantesShare({ navigation, route }) {
@@ -79,24 +79,24 @@ export function RelatorioAniversariantesShare({ navigation, route }) {
           );
 
           setTimeout(() => {
-            captureScreen({
-              format: "jpg",
-              quality: 1,
-              filename: "relatorio-dos-aniversariantes",
-              filenames: ["relatorio-dos-aniversariantes"],
-            }).then(
-              (uri) => {
-                navigation.navigate("RelatorioAniversariantes", {
-                  lojaId: lojaId,
-                  printUrl: uri,
-                  lojaNome: lojaNome,
-                  lojaImagem: lojaImagem,
-                });
-              },
-              (error) => {
-                return null;
-              }
-            );
+            // captureScreen({
+            //   format: "jpg",
+            //   quality: 1,
+            //   filename: "relatorio-dos-aniversariantes",
+            //   filenames: ["relatorio-dos-aniversariantes"],
+            // }).then(
+            //   (uri) => {
+            //     navigation.navigate("RelatorioAniversariantes", {
+            //       lojaId: lojaId,
+            //       printUrl: uri,
+            //       lojaNome: lojaNome,
+            //       lojaImagem: lojaImagem,
+            //     });
+            //   },
+            //   (error) => {
+            //     return null;
+            //   }
+            // );
           }, 500);
         })
         .catch((err) => {
@@ -249,7 +249,7 @@ export function RelatorioAniversariantesShare({ navigation, route }) {
               paddingLeft: 20,
             }}
           >
-            <PieChart
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes.porcentagenAniversariantes
@@ -305,7 +305,7 @@ export function RelatorioAniversariantesShare({ navigation, route }) {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>

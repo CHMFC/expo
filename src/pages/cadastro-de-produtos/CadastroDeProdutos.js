@@ -21,7 +21,7 @@ import Nav from "../../components/nav/Nav";
 
 import { styles } from "./cadastroDeProdutosStyle";
 
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 import { useForm, Controller } from "react-hook-form";
 
 export default function CadastroDeProdutos({ route, navigation }) {
@@ -95,8 +95,12 @@ export default function CadastroDeProdutos({ route, navigation }) {
       mediaType: "photo",
       quality: 0.5,
     };
-    const result = await launchImageLibrary(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
       setPhoto("Inserido");
       return;
@@ -116,8 +120,12 @@ export default function CadastroDeProdutos({ route, navigation }) {
       saveToPhotos: false,
       cameraType: "back",
     };
-    const result = await launchCamera(options);
-    if (result?.assets) {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.5,
+      allowsEditing: true,
+    });
+    if (!result.canceled) {
       setImagem(result.assets[0]);
       setPhoto("Inserido");
     } else {

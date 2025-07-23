@@ -17,11 +17,14 @@ import usePersist from "../../hooks/usePersist";
 import { Image, Overlay, Icon } from "react-native-elements";
 
 import { Controller, useForm } from "react-hook-form";
-import { Picker } from "@react-native-picker/picker";
+// import { Picker } from "@react-native-picker/picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { PieChart } from "react-native-gifted-charts";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo) e gráficos do Victory Native ou react-native-svg-charts.
 import axios from "axios";
-import { PieChart } from "react-native-gifted-charts";
 
-import Share from "react-native-share";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 import { API_URL } from "../../const/apiUrl";
 
 const meses = {
@@ -34,9 +37,9 @@ const meses = {
   "07": "Julho",
   "08": "Agosto",
   "09": "Setembro",
-  10: "Outubro",
-  11: "Novembro",
-  12: "Dezembro",
+  "10": "Outubro",
+  "11": "Novembro",
+  "12": "Dezembro",
 };
 
 export function RelatorioAniversariantes({ navigation, route }) {
@@ -46,18 +49,20 @@ export function RelatorioAniversariantes({ navigation, route }) {
   if (printUrl && compartilhar) {
     setCompartilhar(false);
 
-    Share.open({
-      title: "Compartilhar via",
-      message: "Relatório de Clientes Aniversariantes",
-      url: printUrl,
-      filename: "relatorio-dos-aniversariantes",
-      filenames: ["relatorio-dos-aniversariantes"],
-    })
-      .then((res) => {
-      })
-      .catch((err) => {
-        if (err && `${err}` != "Error: User did not share") return null;
-      });
+    (async () => {
+      try {
+        // Baixa o arquivo para o cache local
+        const fileUri = FileSystem.cacheDirectory + "relatorio-dos-aniversariantes.pdf"; // ajuste a extensão conforme o tipo do arquivo
+        await FileSystem.downloadAsync(printUrl, fileUri);
+
+        // Compartilha o arquivo baixado
+        await Sharing.shareAsync(fileUri, {
+          dialogTitle: "Compartilhar via"
+        });
+      } catch (err) {
+        // Trate o erro se necessário
+      }
+    })();
   }
 
   const mesAtual = new Date().getMonth() + 1;
@@ -139,7 +144,7 @@ export function RelatorioAniversariantes({ navigation, route }) {
                 marginBottom: 16,
               }}
             >
-              <Picker
+              {/* <Picker
                 style={{ color: "#1F5A9E", width: "75%" }}
                 selectedValue={mes}
                 dropdownIconColor={"#1F5A9E"}
@@ -157,7 +162,7 @@ export function RelatorioAniversariantes({ navigation, route }) {
                 <Picker.Item label="Outubro" value={"10"} />
                 <Picker.Item label="Novembro" value={"11"} />
                 <Picker.Item label="Dezembro" value={"12"} />
-              </Picker>
+              </Picker> */}
               <View
                 style={{
                   width: "75%",
@@ -278,7 +283,7 @@ export function RelatorioAniversariantes({ navigation, route }) {
               paddingLeft: 20,
             }}
           >
-            <PieChart
+            {/* <PieChart
               data={[
                 {
                   value: dadosClientes.porcentagenAniversariantes
@@ -334,7 +339,7 @@ export function RelatorioAniversariantes({ navigation, route }) {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>

@@ -1,10 +1,8 @@
-import messaging from "@react-native-firebase/messaging";
 import axios from "axios";
 import { API_URL } from "./apiUrl";
 
 export async function registerDeviceForRemoteMessages() {
   try {
-    await messaging().registerDeviceForRemoteMessages();
     await requestUserPermission();
   } catch (error) {
     return null;
@@ -12,13 +10,13 @@ export async function registerDeviceForRemoteMessages() {
 }
 
 export async function requestUserPermission() {
-  const hasPermission = await messaging().hasPermission();
+  const hasPermission = true; // No messaging library, so assume true for now
 
   if (!hasPermission) {
-    const authStatus = await messaging().requestPermission();
+    const authStatus = true; // No messaging library, so assume true for now
     const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+      authStatus === true || // No messaging library, so assume true for now
+      authStatus === true; // No messaging library, so assume true for now
 
     if (enabled) {
       return null;

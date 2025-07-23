@@ -4,40 +4,40 @@
     "slug": "scott-club",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "scott-club",
-
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.seuusuario.scott-club"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.seuusuario.scott-club",
-      "web": {
-        "favicon": "./assets/favicon.png"
-      },
-
-      "plugins": [
-        [
-          "expo-auth-session",
-          {
-            "providers": ["google"]
-          }
-        ]
+      "package": "com.seuusuario.scottclub"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O aplicativo precisa de acesso às suas fotos para que você possa escolher uma imagem."
+        }
       ]
-    }
+    ]
   }
 }

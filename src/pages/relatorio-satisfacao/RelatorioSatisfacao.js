@@ -12,7 +12,8 @@ import { PieChart } from "react-native-gifted-charts";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Data } from "../../components/datas/Data";
 
-import Share from "react-native-share";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 import { StatusBar } from "react-native";
 import { API_URL } from "../../const/apiUrl";
 
@@ -23,18 +24,20 @@ export function RelatorioSatisfacao({ navigation, route }) {
   if (printUrl && compartilhar) {
     setCompartilhar(false);
 
-    Share.open({
-      title: "Compartilhar via",
-      message: "Relatório de Satisfação",
-      url: printUrl,
-      filename: "relatorio-de-satisfacao",
-      filenames: ["relatorio-de-satisfacao"],
-    })
-      .then((res) => {
-      })
-      .catch((err) => {
-        if (err && `${err}` != "Error: User did not share") return null;
-      });
+    (async () => {
+      try {
+        // Baixa o arquivo para o cache local
+        const fileUri = FileSystem.cacheDirectory + "relatorio-de-satisfacao.pdf"; // ajuste a extensão conforme o tipo do arquivo
+        await FileSystem.downloadAsync(printUrl, fileUri);
+
+        // Compartilha o arquivo baixado
+        await Sharing.shareAsync(fileUri, {
+          dialogTitle: "Compartilhar via"
+        });
+      } catch (err) {
+        // Trate o erro se necessário
+      }
+    })();
   }
 
   const [dadosClientes, setDadosClientes] = useState([]);

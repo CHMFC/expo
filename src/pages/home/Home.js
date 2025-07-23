@@ -16,9 +16,8 @@ import {
 
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import Geolocation from "@react-native-community/geolocation";
-import messaging from "@react-native-firebase/messaging";
+// import Geolocation from "@react-native-community/geolocation";
+// import messaging from "@react-native-firebase/messaging";
 import { useIsFocused } from "@react-navigation/native";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
@@ -67,7 +66,6 @@ export default function Home({ navigation }) {
   const [complementarCadastro, setComplementarCadastro] = useState(false);
 
   const logout = async () => {
-    await GoogleSignin.signOut();
     await AsyncStorage.getAllKeys()
       .then((keys) => {
         AsyncStorage.multiRemove(keys);
@@ -165,68 +163,69 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const granted = await messaging().requestPermission();
-      if (granted) {
-        const fcmToken = await messaging().getToken();
-        await AsyncStorage.setItem("fcmToken", fcmToken);
+      // const granted = await messaging().requestPermission();
+      // if (granted) {
+      //   const fcmToken = await messaging().getToken();
+      //   await AsyncStorage.setItem("fcmToken", fcmToken);
 
-        const userData = await AsyncStorage.getItem("userData");
-        const userToken = await AsyncStorage.getItem("token");
-        const userId = JSON.parse(userData).id;
+      //   const userData = await AsyncStorage.getItem("userData");
+      //   const userToken = await AsyncStorage.getItem("token");
+      //   const userId = JSON.parse(userData).id;
 
-        await axios
-          .put(
-            `${API_URL.base}/usuarios/${userId}/tokenCelular`,
-            {
-              tokenCelular: fcmToken,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${userToken.slice(1, -1)}`,
-              },
-            }
-          )
-          .catch((error) => {
-            if (["jwt malformed", "jwt expired"].includes(error.response.data))
-              logout();
-            else return null;
-          });
-      }
+      //   await axios
+      //     .put(
+      //       `${API_URL.base}/usuarios/${userId}/tokenCelular`,
+      //       {
+      //         tokenCelular: fcmToken,
+      //       },
+      //       {
+      //         headers: {
+      //           Authorization: `Bearer ${userToken.slice(1, -1)}`,
+      //         },
+      //       }
+      //     )
+      //     .catch((error) => {
+      //       if (["jwt malformed", "jwt expired"].includes(error.response.data))
+      //         logout();
+      //       else return null;
+      //     });
+      // }
     };
 
     fetchToken();
 
-    const onTokenRefreshListener = messaging().onTokenRefresh(
-      async (newToken) => {
-        await AsyncStorage.setItem("fcmToken", newToken);
-        const fcmToken = await messaging().getToken();
-        await AsyncStorage.setItem("fcmToken", fcmToken);
+    const onTokenRefreshListener = () => {
+      // messaging().onTokenRefresh(
+      //   async (newToken) => {
+      //     await AsyncStorage.setItem("fcmToken", newToken);
+      //     const fcmToken = await messaging().getToken();
+      //     await AsyncStorage.setItem("fcmToken", fcmToken);
 
-        const userData = await AsyncStorage.getItem("userData");
-        const userId = JSON.parse(userData).id;
+      //     const userData = await AsyncStorage.getItem("userData");
+      //     const userId = JSON.parse(userData).id;
 
-        await axios
-          .put(
-            `${API_URL.base}/usuarios/${userId}/tokenCelular`,
-            {
-              tokenCelular: fcmToken,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${tokenStored}`,
-              },
-            }
-          )
-          .catch((error) => {
-            if (["jwt malformed", "jwt expired"].includes(error.response.data))
-              logout();
-            else return null;
-          });
-      }
-    );
+      //     await axios
+      //       .put(
+      //         `${API_URL.base}/usuarios/${userId}/tokenCelular`,
+      //         {
+      //           tokenCelular: fcmToken,
+      //         },
+      //         {
+      //           headers: {
+      //             Authorization: `Bearer ${tokenStored}`,
+      //           },
+      //         }
+      //       )
+      //       .catch((error) => {
+      //         if (["jwt malformed", "jwt expired"].includes(error.response.data))
+      //           logout();
+      //         else return null;
+      //       });
+      // }
+    };
 
     return () => {
-      onTokenRefreshListener();
+      // onTokenRefreshListener();
     };
   }, []);
 
@@ -371,15 +370,15 @@ export default function Home({ navigation }) {
       const result = requestLocationPermission();
       result.then((res) => {
         if (res) {
-          Geolocation.getCurrentPosition(
-            (position) => {
-              setLocation(position);
-            },
-            (error) => {
-              setLocation(false);
-            },
-            { timeout: 10000, maximumAge: 10000 }
-          );
+          // Geolocation.getCurrentPosition(
+          //   (position) => {
+          //     setLocation(position);
+          //   },
+          //   (error) => {
+          //     setLocation(false);
+          //   },
+          //   { timeout: 10000, maximumAge: 10000 }
+          // );
         }
       });
     };

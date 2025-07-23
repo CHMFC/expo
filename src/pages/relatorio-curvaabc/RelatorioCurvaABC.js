@@ -10,12 +10,14 @@ import { Image, Icon } from "react-native-elements";
 
 import axios from "axios";
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Data } from "../../components/datas/Data";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { Data } from "../../components/datas/Data";
 
-import { BarChart } from "react-native-gifted-charts";
+// import { BarChart } from "react-native-gifted-charts";
+// Sugestão: use DateTimePicker do @react-native-community/datetimepicker (compatível com Expo) e Victory Native ou react-native-svg-charts para gráficos.
 
-import Share from "react-native-share";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 import { API_URL } from "../../const/apiUrl";
 
 export function RelatorioCurvaABC({ navigation, route }) {
@@ -34,18 +36,20 @@ export function RelatorioCurvaABC({ navigation, route }) {
   if (printUrl && compartilhar) {
     setCompartilhar(false);
 
-    Share.open({
-      title: "Compartilhar via",
-      message: "Relatório de Curva ABC",
-      url: printUrl,
-      filename: "relatorio-de-curva-abc",
-      filenames: ["relatorio-de-curva-abc"],
-    })
-      .then((res) => {
-      })
-      .catch((err) => {
-        if (err && `${err}` != "Error: User did not share") return null;
-      });
+    (async () => {
+      try {
+        // Baixa o arquivo para o cache local
+        const fileUri = FileSystem.cacheDirectory + "relatorio-de-curva-abc.pdf"; // ajuste a extensão conforme o tipo do arquivo
+        await FileSystem.downloadAsync(printUrl, fileUri);
+
+        // Compartilha o arquivo baixado
+        await Sharing.shareAsync(fileUri, {
+          dialogTitle: "Compartilhar via"
+        });
+      } catch (err) {
+        // Trate o erro se necessário
+      }
+    })();
   }
 
   const [dataFinalVisivel, setDataFinalVisivel] = useState(false);
