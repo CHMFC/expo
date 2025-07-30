@@ -1,19 +1,18 @@
-import { Text, TouchableOpacity, View, SafeAreaView,Alert } from "react-native";
+import { Text, TouchableOpacity, View, SafeAreaView, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { styles } from "./socialLoginStyle";
-import { memo, useEffect } from "react";
-import axios from "axios";
+import { memo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import usePersist from "../../hooks/usePersist";
+import { useGoogleAuth } from "../../hooks/useGoogleAuth";
+import axios from "axios";
 import { API_URL } from "../../const/apiUrl";
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SocialLoginComponent({ label }) {
   const navigation = useNavigation();
   const { setTokenStored, setUserStored } = usePersist();
+
   const pegarUsuario = async (userData) => {
     const token = userData.token;
     const instance = axios.create({
@@ -33,28 +32,55 @@ export default function SocialLoginComponent({ label }) {
     });
   };
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: 'SEU_CLIENT_ID_EXPO_APPS.apps.googleusercontent.com',
-    iosClientId: '698611291998-6c9bsgsmiluinjveif5v6ke1b8p81l5o.apps.googleusercontent.com',
-    androidClientId: 'SEU_CLIENT_ID_ANDROID.apps.googleusercontent.com',
-    webClientId: 'SEU_CLIENT_ID_WEB.apps.googleusercontent.com',
-  });
+  const handleGoogleSuccess = async (userData) => {
+    setTokenStored(userData.token);
+    pegarUsuario(userData);
 
-  useEffect(() => {
-    WebBrowser.maybeCompleteAuthSession();
-    if (response?.type === 'success') {
-      const { authentication } = response;
-    }
-  }, [response]);
+    // Verificar status do onboarding
+    const checkOnboardingStatus = async () => {
+      try {
+        const onboardingCompleted = await AsyncStorage.getItem("bemVindo");
+        if (onboardingCompleted === "true") {
+          return navigation.navigate("Home", { token: userData.token });
+        } else {
+          await axios
+            .get(`${API_URL.base}/mensagensapresentacao`)
+            .then((res) => {
+              return navigation.navigate("BemVindo", {
+                token: userData.token,
+                bemVindo: res.data,
+              });
+            })
+            .catch((error) => {
+              navigation.navigate("Home", { token: userData.token });
+            });
+        }
+      } catch (error) {
+        navigation.navigate("Home", { token: userData.token });
+      }
+    };
+
+    checkOnboardingStatus();
+  };
+
+  const handleGoogleError = (error) => {
+    Alert.alert(
+      "Erro no Login",
+      "Não foi possível fazer login com o Google. Tente novamente."
+    );
+  };
+
+  const { signInWithGoogle, isLoading } = useGoogleAuth(handleGoogleSuccess, handleGoogleError);
 
   return (
-    <SafeAreaView style={styles.socialLoginContainer}>
+    <SafeAreaView>
       <Text style={styles.socialText}>{label}</Text>
       <View style={styles.socialLogin}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.socialContainer}
-          onPress={() => promptAsync()}
+          onPress={signInWithGoogle}
+          disabled={isLoading}
         >
           <Icon name="logo-google" color="black" size={24} />
         </TouchableOpacity>

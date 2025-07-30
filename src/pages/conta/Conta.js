@@ -174,7 +174,8 @@ export default function Conta({ navigation }) {
                       }
                     />
 
-                    <Modal
+                    {/* Remover Modal de 'Como funciona os pontos?' */}
+                    {/* <Modal
                       isVisible={infoPontos}
                       onBackdropPress={exibirInfoPontos}
                       animationIn="fadeIn"
@@ -190,7 +191,6 @@ export default function Conta({ navigation }) {
                           }}
                         >
                           <View />
-
                           <Text
                             style={{
                               color: "black",
@@ -216,7 +216,7 @@ export default function Conta({ navigation }) {
                           (lojista) escolhido.
                         </Text>
                       </View>
-                    </Modal>
+                    </Modal> */}
 
                     <PontosConta
                       tipoPontos={"Tickets"}
@@ -231,7 +231,8 @@ export default function Conta({ navigation }) {
                       }
                     />
 
-                    <Modal
+                    {/* Remover Modal de 'Como funciona os tickets?' */}
+                    {/* <Modal
                       isVisible={infoTickets}
                       onBackdropPress={exibirTicketsPontos}
                       animationIn="fadeIn"
@@ -272,7 +273,7 @@ export default function Conta({ navigation }) {
                           pontuação e fidelização do Scotter (lojista) escolhido.
                         </Text>
                       </View>
-                    </Modal>
+                    </Modal> */}
                   </SafeAreaView>
                 ))
               )}

@@ -37,7 +37,8 @@
         {
           "photosPermission": "O aplicativo precisa de acesso às suas fotos para que você possa escolher uma imagem."
         }
-      ]
+      ],
+      "expo-web-browser"
     ]
   }
 }

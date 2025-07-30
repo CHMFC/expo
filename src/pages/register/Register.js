@@ -10,6 +10,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { Icon } from "react-native-elements";
 import { styles } from "./registerStyle";
 import { useState } from "react";
 import Form from "../../components/form/Form";
@@ -67,9 +68,11 @@ export default function Register({ navigation }) {
   };
 
   const confirmarDataNascimento = (date) => {
-    setDataNascimento(date);
-    setDataNascimentoPlaceHolder(false);
-    esconderDataNascimento();
+    if (date && !isNaN(date.getTime())) {
+      setDataNascimento(date);
+      setDataNascimentoPlaceHolder(false);
+      esconderDataNascimento();
+    }
   };
 
   const mostrarMensagem = (message, type, mensagem) => {
@@ -120,6 +123,17 @@ export default function Register({ navigation }) {
   };
 
   const register = async () => {
+    // Validar data de nascimento
+    if (DataNascimentoPlaceHolder) {
+      Alert.alert("Erro!", "Selecione sua data de nascimento", "danger");
+      return;
+    }
+    
+    if (dataNascimento && isNaN(dataNascimento.getTime())) {
+      Alert.alert("Erro!", "Data de nascimento inválida", "danger");
+      return;
+    }
+    
     if (!email || !cpf || cpf.length < 11 || !senha) {
       setEmailError(true);
       setError(true);
@@ -304,15 +318,23 @@ export default function Register({ navigation }) {
                 backgroundColor: "#DCDCDC",
                 borderRadius: 32,
                 padding: 16,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 borderColor: nomeError || (nomeVazio && "red"),
                 borderWidth: nomeError || nomeVazio ? 1 : 0,
               }}
             >
-              <Text style={{ color: "#878383" }}>
+              <Text style={{ 
+                color: DataNascimentoPlaceHolder ? '#878383' : '#000',
+                fontSize: 16
+              }}>
                 {DataNascimentoPlaceHolder
-                  ? "Data de Nascimento"
-                  : dataNascimento.toLocaleDateString('pt-BR')}
+                  ? "Selecione sua data de nascimento"
+                  : `${dataNascimento.getDate().toString().padStart(2, "0")}/${String(dataNascimento.getMonth() + 1).padStart(2, "0")}/${dataNascimento.getFullYear()}`
+                }
               </Text>
+              <Icon name="calendar" type="font-awesome" size={16} color="#878383" />
             </TouchableOpacity>
           </View>
 
@@ -321,6 +343,7 @@ export default function Register({ navigation }) {
               value={dataNascimento}
               mode="date"
               display="default"
+              locale="pt-BR"
               onChange={(event, selectedDate) => {
                 if (event.type === 'set') {
                   confirmarDataNascimento(selectedDate || dataNascimento);
@@ -369,7 +392,8 @@ export default function Register({ navigation }) {
             senha !== repetirSenha ||
             senha.length < 8 ||
             !cpf ||
-            cpf.length < 11 ? (
+            cpf.length < 11 ||
+            DataNascimentoPlaceHolder ? (
             <Button
               label={"Cadastrar"}
               backgroundColor={"#c0c0c0"}

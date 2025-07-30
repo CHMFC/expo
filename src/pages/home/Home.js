@@ -18,7 +18,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import Geolocation from "@react-native-community/geolocation";
 // import messaging from "@react-native-firebase/messaging";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useFocusEffect } from "@react-navigation/native";
 import Header from "../../components/header/Header";
 import Nav from "../../components/nav/Nav";
 import { styles } from "./homeStyle";
@@ -63,6 +63,18 @@ export default function Home({ navigation }) {
   const [infoPontos, setInfoPontos] = useState(false);
   const [infoTickets, setInfoTickets] = useState(false);
   const [complementarCadastro, setComplementarCadastro] = useState(false);
+
+  // Resetar overlays ao perder o foco da Home
+  useFocusEffect(
+    React.useCallback(() => {
+      // Ao ganhar foco, não faz nada
+      return () => {
+        // Ao perder o foco, fecha os overlays
+        setInfoPontos(false);
+        setInfoTickets(false);
+      };
+    }, [])
+  );
 
   const logout = async () => {
     await AsyncStorage.getAllKeys()
@@ -470,53 +482,54 @@ export default function Home({ navigation }) {
                   }}
                 />
 
-                <Overlay
-                  isVisible={infoPontos}
-                  onBackdropPress={exibirInfoPontos}
-                  overlayStyle={{ width: "90%" }}
-                >
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View />
-
-                      <Text
+                {isFocused && (
+                  <Overlay
+                    isVisible={infoPontos}
+                    onBackdropPress={exibirInfoPontos}
+                    overlayStyle={{ width: "90%" }}
+                  >
+                    <View>
+                      <View
                         style={{
-                          color: "black",
-                          fontWeight: "600",
-                          marginLeft: 8,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
                         }}
                       >
-                        Como funciona os pontos?
+                        <View />
+                        <Text
+                          style={{
+                            color: "black",
+                            fontWeight: "600",
+                            marginLeft: 8,
+                          }}
+                        >
+                          Como funciona os pontos?
+                        </Text>
+                        <TouchableOpacity>
+                          <Icon
+                            name="close-outline"
+                            type="ionicon"
+                            size={32}
+                            color="#000"
+                            onPress={exibirInfoPontos}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text
+                        style={{
+                          textAlign: "auto",
+                          color: "black",
+                        }}
+                      >
+                        Adquirindo QUALQUER PRODUTO OU SERVIÇO, você ganhará
+                        PONTOS que virarão benefícios, desde que validado no
+                        regulamento de pontuação e fidelização do Scotter
+                        (lojista) escolhido.
                       </Text>
-                      <TouchableOpacity>
-                        <Icon
-                          name="close-outline"
-                          type="ionicon"
-                          size={32}
-                          color="#000"
-                          onPress={exibirInfoPontos}
-                        />
-                      </TouchableOpacity>
                     </View>
-                    <Text
-                      style={{
-                        textAlign: "auto",
-                        color: "black",
-                      }}
-                    >
-                      Adquirindo QUALQUER PRODUTO OU SERVIÇO, você ganhará
-                      PONTOS que virarão benefícios, desde que validado no
-                      regulamento de pontuação e fidelização do Scotter
-                      (lojista) escolhido.
-                    </Text>
-                  </View>
-                </Overlay>
+                  </Overlay>
+                )}
 
                 <PontosConta
                   tipoPontos="Tickets"
@@ -530,52 +543,53 @@ export default function Home({ navigation }) {
                     });
                   }}
                 />
-                <Overlay
-                  isVisible={infoTickets}
-                  onBackdropPress={exibirTicketsPontos}
-                  overlayStyle={{ width: "90%" }}
-                >
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View />
-
-                      <Text
+                {isFocused && (
+                  <Overlay
+                    isVisible={infoTickets}
+                    onBackdropPress={exibirTicketsPontos}
+                    overlayStyle={{ width: "90%" }}
+                  >
+                    <View>
+                      <View
                         style={{
-                          color: "black",
-                          fontWeight: "600",
-                          marginLeft: 8,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
                         }}
                       >
-                        Como funciona os tickets?
+                        <View />
+                        <Text
+                          style={{
+                            color: "black",
+                            fontWeight: "600",
+                            marginLeft: 8,
+                          }}
+                        >
+                          Como funciona os tickets?
+                        </Text>
+                        <TouchableOpacity>
+                          <Icon
+                            name="close-outline"
+                            type="ionicon"
+                            size={32}
+                            color="#000"
+                            onPress={exibirTicketsPontos}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text
+                        style={{
+                          textAlign: "auto",
+                          color: "black",
+                        }}
+                      >
+                        Em PRODUTOS E SERVIÇOS ESPECÍFICOS, você ganhará TICKETS
+                        especiais, desde que validado no regulamento de
+                        pontuação e fidelização do Scotter (lojista) escolhido.
                       </Text>
-                      <TouchableOpacity>
-                        <Icon
-                          name="close-outline"
-                          type="ionicon"
-                          size={32}
-                          color="#000"
-                          onPress={exibirTicketsPontos}
-                        />
-                      </TouchableOpacity>
                     </View>
-                    <Text
-                      style={{
-                        textAlign: "auto",
-                        color: "black",
-                      }}
-                    >
-                      Em PRODUTOS E SERVIÇOS ESPECÍFICOS, você ganhará TICKETS
-                      especiais, desde que validado no regulamento de
-                      pontuação e fidelização do Scotter (lojista) escolhido.
-                    </Text>
-                  </View>
-                </Overlay>
+                  </Overlay>
+                )}
               </View>
             ))
           )}

@@ -9,6 +9,8 @@ import {
   Text,
   TextInput,
   StatusBar,
+  Modal,
+  FlatList,
 } from "react-native";
 import Input from "../../components/input/Input";
 import { styles } from "./ContaUsuarioStyle";
@@ -45,21 +47,44 @@ export default function ContaUsuario({ navigation }) {
   const [alterarCidade, setAlterarCidade] = useState("");
   const [alterarBairro, setAlterarBairro] = useState("");
   const [alterarCPF, setAlterarCPF] = useState();
-  const [user, setUser] = useState(async () => {
-    const data = await AsyncStorage.getItem("userData");
-    const result = JSON.parse(data);
-    setUser(result || null);
-    setDataNascimento(new Date(result.dataNascimento));
-    setDataNascimentoPlaceHolder(false);
-  });
-  const [alterarGenero, setAlterarGenero] = useState(async () => {
-    const data = await AsyncStorage.getItem("userData");
-    const result = JSON.parse(data);
-    setAlterarGenero(result.genero || null);
-  });
+  const [user, setUser] = useState(null);
+  const [alterarGenero, setAlterarGenero] = useState(null);
   const [imagem, setImagem] = useState("");
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
+
+  // Carregar dados do usuário
+  useEffect(() => {
+    const carregarDadosUsuario = async () => {
+      try {
+        const data = await AsyncStorage.getItem("userData");
+        if (data) {
+          const result = JSON.parse(data);
+          setUser(result);
+          
+          // Configurar data de nascimento
+          if (result.dataNascimento && result.dataNascimento !== "null") {
+            const dataNasc = new Date(result.dataNascimento);
+            // Verificar se a data é válida
+            if (!isNaN(dataNasc.getTime())) {
+              setDataNascimento(dataNasc);
+              setDataNascimentoPlaceHolder(false);
+            }
+          }
+          
+          // Configurar gênero
+          if (result.genero) {
+            setAlterarGenero(result.genero);
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados do usuário:", error);
+      }
+    };
+
+    carregarDadosUsuario();
+  }, []);
+
 
   const mostrarDataNascimento = () => {
     setDataNascimentoVisivel(true);
@@ -70,9 +95,11 @@ export default function ContaUsuario({ navigation }) {
   };
 
   const confirmarDataNascimento = (date) => {
-    setDataNascimento(date);
-    setDataNascimentoPlaceHolder(false);
-    esconderDataNascimento();
+    if (date && !isNaN(date.getTime())) {
+      setDataNascimento(date);
+      setDataNascimentoPlaceHolder(false);
+      esconderDataNascimento();
+    }
   };
 
   const mostrarMensagem = (title, mensagem, type) => {
@@ -180,6 +207,12 @@ export default function ContaUsuario({ navigation }) {
   };
 
   const atualizarDados = async () => {
+    // Validar data de nascimento
+    if (dataNascimento && isNaN(dataNascimento.getTime())) {
+      mostrarMensagem("Erro!", "Data de nascimento inválida", "danger");
+      return;
+    }
+
     const formData = new FormData();
 
     const dadosAtualizadosUsuario = {
@@ -190,9 +223,11 @@ export default function ContaUsuario({ navigation }) {
       genero: alterarGenero ? alterarGenero : user?.genero,
       cidade: alterarCidade ? alterarCidade : user?.cidade,
       bairro: alterarBairro,
-      dataNascimento: dataNascimento
+      dataNascimento: dataNascimento && !isNaN(dataNascimento.getTime())
         ? dataNascimento.toISOString().substring(0, 10)
-        : user?.dataNascimento.toISOString().substring(0, 10),
+        : user?.dataNascimento && user.dataNascimento !== "null"
+        ? new Date(user.dataNascimento).toISOString().substring(0, 10)
+        : new Date().toISOString().substring(0, 10),
 
       imagem: imagem
         ? {
@@ -240,6 +275,14 @@ export default function ContaUsuario({ navigation }) {
   const nomeError =
     errorMessage?.error ===
     "Nome inválido! Não pode ser vazio e deve ser completo.";
+
+  const [modalGeneroVisible, setModalGeneroVisible] = useState(false);
+  const opcoesGenero = [
+    { label: 'Feminino', value: 'feminino' },
+    { label: 'Masculino', value: 'masculino' },
+    { label: 'Outros', value: 'outros' },
+    { label: 'Não quero informar', value: 'nao quis informar' },
+  ];
 
   return (
     <ScreenContainer>
@@ -310,19 +353,19 @@ export default function ContaUsuario({ navigation }) {
 
             <Text style={styles.inputLabel}>Data de Nascimento</Text>
             <TouchableOpacity
-              style={{ width: "100%" }}
+              style={[styles.input, { justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }]}
               onPress={mostrarDataNascimento}
             >
-              <TextInput
-                value={
-                  DataNascimentoPlaceHolder
-                    ? "Data de Nascimento"
-                    : `${dataNascimento.getDate().toString().padStart(2, "0")}/${String(dataNascimento.getMonth() + 1).padStart(2, "0")}/${dataNascimento.getFullYear()}`
+              <Text style={{ 
+                color: DataNascimentoPlaceHolder ? '#878383' : '#000',
+                fontSize: 16
+              }}>
+                {DataNascimentoPlaceHolder
+                  ? "Selecione sua data de nascimento"
+                  : `${dataNascimento.getDate().toString().padStart(2, "0")}/${String(dataNascimento.getMonth() + 1).padStart(2, "0")}/${dataNascimento.getFullYear()}`
                 }
-                placeholderTextColor="#878383"
-                style={styles.input}
-                editable={false}
-              />
+              </Text>
+              <Icon name="calendar" type="font-awesome" size={16} color="#878383" />
             </TouchableOpacity>
 
             <DateTimePickerModal
@@ -332,21 +375,46 @@ export default function ContaUsuario({ navigation }) {
               onConfirm={confirmarDataNascimento}
               onCancel={esconderDataNascimento}
               maximumDate={dataMaxima}
+              minimumDate={new Date(1900, 0, 1)}
+              display="default"
+              locale="pt-BR"
             />
 
             <Text style={styles.inputLabel}>Gênero</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={alterarGenero ? alterarGenero : user?.genero}
-                onValueChange={(itemValue) => setAlterarGenero(itemValue)}
-                style={{ color: "#000000", marginTop: -16}}
-              >
-                <Picker.Item label="Feminino" value="feminino" />
-                <Picker.Item label="Masculino" value="masculino" />
-                <Picker.Item label="Outros" value="outros" />
-                <Picker.Item label="Não quero informar" value="nao quis informar" />
-              </Picker>
-            </View>
+            <TouchableOpacity
+              style={[styles.input, { justifyContent: 'center' }]}
+              onPress={() => setModalGeneroVisible(true)}
+            >
+              <Text style={{ color: alterarGenero ? '#000' : '#878383' }}>
+                {opcoesGenero.find(opt => opt.value === (alterarGenero || user?.genero))?.label || 'Selecione o gênero'}
+              </Text>
+            </TouchableOpacity>
+            <Modal
+              visible={modalGeneroVisible}
+              transparent
+              animationType="slide"
+              onRequestClose={() => setModalGeneroVisible(false)}
+            >
+              <TouchableOpacity style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.3)' }} onPress={() => setModalGeneroVisible(false)}>
+                <View style={{ backgroundColor: '#fff', margin: 32, borderRadius: 12, padding: 16, alignItems: 'center', justifyContent: 'center' }}>
+                  <FlatList
+                    data={opcoesGenero}
+                    keyExtractor={item => item.value}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={{ padding: 16, width: 200, alignItems: 'center' }}
+                        onPress={() => {
+                          setAlterarGenero(item.value);
+                          setModalGeneroVisible(false);
+                        }}
+                      >
+                        <Text style={{ color: '#000', fontSize: 16 }}>{item.label}</Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                </View>
+              </TouchableOpacity>
+            </Modal>
 
             <Text style={styles.inputLabel}>CEP</Text>
             <Input
